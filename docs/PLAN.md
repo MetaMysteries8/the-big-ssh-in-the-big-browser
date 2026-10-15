@@ -2,6 +2,8 @@
 
 Planning status: 2026-10-15. No SSH client or direct-connection proof has been implemented yet.
 
+For the expanded transport survey, engine choices, and ordered experiment backlog, read [TRANSPORT-RESEARCH.md](TRANSPORT-RESEARCH.md) and the [32-option catalog](transport-options.json). The expanded roadmap prioritizes capability measurement, engine comparison, and a target-native WSS prototype before optional compatibility adapters.
+
 ## Product contract
 
 Build an open-source SSH terminal whose main interface runs in an ordinary browser tab. Users can choose their own compatibility transports, including relays or an installed Isolated Web App (IWA). These are optional modes, not completion of the ultimate goal.
@@ -170,4 +172,4 @@ Proposed eventual commands: `doctor`, `dev`, `build`, `bundle --recipe`, and `te
 
 ## First implementation decision
 
-Start with the capability lab plus an OpenSSH WASM extraction spike. Keep the ordinary-tab app as the main product, make compatibility adapters opt-in, and preserve an honest, independently testable direct-mode acceptance test. This delivers useful engineering without claiming that a JavaScript sandbox has capabilities the browser does not expose.
+Start with the capability lab and a comparison of OpenSSH/WASM and Go/WASM. Use the selected engine in a target-native WSS experiment before building optional compatibility adapters. Keep the ordinary-tab app as the main product, and preserve the independently testable unchanged-server direct-mode acceptance test. See the expanded research roadmap for dependencies and stopping rules.
