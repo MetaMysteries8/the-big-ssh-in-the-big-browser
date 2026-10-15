@@ -6,9 +6,17 @@ Evidence is documentary research, existing project documentation, and design inf
 
 ## Recommendation
 
-Keep the ordinary browser tab as the primary product. Start with three small experiments: record the actual browser network capabilities; compare two existing browser SSH engines; and prove whether an SSH server can directly consume a WSS byte stream without forwarding to another daemon. Build the selected client around an explicit transport contract.
+The core use case is an ordinary browser tab connecting to an existing third-party SSH endpoint that the user cannot modify. Start by investigating the browser-to-unchanged-server transport itself. A custom listener on a test server does not validate that use case. Compare existing browser SSH engines only as reusable protocol work, without implying that choosing an engine resolves network access.
 
-The native target listener is the closest practical experiment to an ordinary-tab, zero-intermediary session. It changes the SSH endpoint, so it does not close the original unchanged-server challenge. IWA direct TCP and BYO relays remain separately labeled optional distributions/adapters. Do not make a hosted relay a project dependency.
+Target-native WSS, IWA direct TCP, and BYO relays are optional research or compatibility paths. None is a substitute for the main requirement. Do not prioritize building a modified SSH server or deploying a relay as the project's first working product. The immediate deliverable is transport feasibility evidence against unchanged endpoints, including an explicit blocker if the required capability remains unavailable.
+
+## Concrete use case: existing temporary sandbox entry points
+
+The user wants to open a tab and connect to an existing SSH service such as `railway.new` or `dev.new`, potentially to create or enter a temporary environment. The SSH connection may be the entry point that creates the environment, so requiring a setup command inside that environment first is circular.
+
+Railway documents `ssh railway.new` as an existing entry point. Its SSH CLI documentation also describes using the system SSH client for standard SSH connections; a Railway employee describes `ssh dev.new` as a VM preview entry point. These are concrete unchanged-target examples, not permission to provision a sandbox during research. [Railway entry point](https://railway.com/free-vm), [Railway SSH CLI](https://docs.railway.com/cli/ssh), [dev.new preview](https://station.railway.com/feedback/express-v-ms-fast-cloneable-virtual-mac-bade29ad)
+
+For the strict mode, accept the host, port, user, and credentials with no target-side installation, port publishing, provider cooperation, local helper, or hosted relay. Merely observing a provider's own browser terminal does not establish that its transport is public, carries SSH bytes, accepts our origin/authentication model, or works with the anonymous SSH entry point. Any pre-existing provider web API must be separately documented and tested; it would be a provider-specific compatibility path, not general raw-TCP access or proof of zero forwarding.
 
 ## Define what each result actually proves
 
@@ -41,7 +49,7 @@ These are short negative controls and platform-research topics, not reasons to s
 
 ### Target-native web transports: T03-T06
 
-**WSS is the first candidate.** Design a target service that accepts a browser WebSocket, converts binary message contents into a continuous ordered byte stream, and passes that stream directly to its own SSH server engine. It must not open port 22, spawn a forwarding command, or connect to another SSH endpoint.
+**WSS is a candidate only when target changes are explicitly allowed.** An optional experiment could use a target service that accepts a browser WebSocket, converts binary message contents into a continuous ordered byte stream, and passes that stream directly to its own SSH server engine. It must not open port 22, spawn a forwarding command, or connect to another SSH endpoint. This cannot be required to reach a third-party service such as railway.new.
 
 This is a design inference supported by composable existing APIs: Go's SSH server accepts an underlying `net.Conn`, and coder/websocket exposes a WebSocket-to-`net.Conn` adapter. Their combination is a credible prototype path, not an already tested implementation. [SSH server transport API](https://pkg.go.dev/golang.org/x/crypto/ssh#NewServerConn), [WebSocket adapter](https://pkg.go.dev/github.com/coder/websocket#NetConn)
 
@@ -160,11 +168,11 @@ Build OpenSSH/WASM and Go/WASM spikes against the same test transport. Demonstra
 
 Deliverable: an engine decision record and a minimal reusable binding. Stop extracting a candidate if its required runtime cannot support the planned deployment or maintenance cost is clearly worse without essential compatibility benefits.
 
-### E02: Native WSS target — highest-priority zero-intermediary prototype
+### E02: Native WSS target — optional modified-server research
 
 Implement a restricted test server accepting binary WSS directly into an SSH engine. Negotiate SSH from a real ordinary tab and run an interactive PTY session. Instrument the server to establish that it never dials a secondary SSH socket or spawns a network-forwarding command. Use a synthetic host key and account; test wrong keys and denied authentication.
 
-Deliverable: browser/target traffic capture, process/socket accounting, fixture source, and a repeatable login. Mark the result **modified target, ordinary tab, no forwarding intermediary**. If the only workable design forwards to sshd, reclassify it as T10 rather than counting E02 as passed. A production target daemon requires its own design and security review.
+Deliverable: browser/target traffic capture, process/socket accounting, fixture source, and a repeatable login. Mark the result **modified target, ordinary tab, no forwarding intermediary**. It supplies no evidence of compatibility with railway.new or another unchanged third-party endpoint. If the only workable design forwards to sshd, reclassify it as T10 rather than counting E02 as passed. A production target daemon requires its own design and security review. Do not start this experiment as a substitute for resolving E00's unchanged-server blocker.
 
 ### E03: IWA direct reference — after E01
 
@@ -196,13 +204,13 @@ A release can claim a compatibility mode once its checks pass. The ultimate dire
 
 ## Implementation order and project records
 
-1. Add the capability lab, minimal transport contract, fixture isolation, and result schema.
-2. Compare the two engines; choose and document one.
-3. Attempt the native WSS target to demonstrate the closest ordinary-tab zero-intermediary path.
-4. Add the optional IWA reference and BYO compatibility adapter using the same client packages.
-5. Add startup recipes and the validated sandbox, then expand authentication and file transfer.
-6. Test additional native transports only where they have a concrete benefit.
-7. Keep the ordinary-tab raw-TCP platform track open with reproducible limitations and a minimal browser API proposal if needed.
+1. Establish browser-to-unchanged-SSH-server feasibility with the capability lab, a controlled stock SSH fixture, and a result schema. Use the third-party temporary-sandbox scenario as the acceptance requirement, without provisioning real remote environments merely to test the idea.
+2. If a viable direct transport is found, demonstrate SSH negotiation against unchanged endpoints before expanding the UI. If it is not found, publish the concrete API blocker and investigate browser-platform changes; do not present a modified server as progress on that connection requirement.
+3. Compare the two engines as independent reusable client work. A working in-memory or relayed engine test is explicitly not a direct-transport pass.
+4. Build the ordinary-tab terminal, startup recipes, and sandbox around a proven transport, or release them only with an honest compatibility-only label.
+5. Keep IWA direct TCP, BYO relay adapters, and provider-specific existing APIs as explicit optional compatibility work.
+6. Park target-native WSS and the other modified-server transports unless that separate product variant is wanted. They cannot unlock arbitrary third-party SSH entry points.
+7. Pursue a minimal browser API proposal if platform changes are necessary. A prototype custom browser cannot establish support in all unmodified browsers.
 
 Suggested directories: `experiments/capabilities/`, `experiments/engines/`, `experiments/target-native/`, `tests/fixtures/`, and `docs/results/`. They describe future work; this documentation change does not create functioning experiments.
 

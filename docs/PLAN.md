@@ -2,7 +2,7 @@
 
 Planning status: 2026-10-15. No SSH client or direct-connection proof has been implemented yet.
 
-For the expanded transport survey, engine choices, and ordered experiment backlog, read [TRANSPORT-RESEARCH.md](TRANSPORT-RESEARCH.md) and the [32-option catalog](transport-options.json). The expanded roadmap prioritizes capability measurement, engine comparison, and a target-native WSS prototype before optional compatibility adapters.
+For the expanded transport survey, engine choices, and ordered experiment backlog, read [TRANSPORT-RESEARCH.md](TRANSPORT-RESEARCH.md) and the [32-option catalog](transport-options.json). The first gate is ordinary-tab connectivity to unchanged third-party SSH endpoints, including temporary-sandbox entry points that cannot be configured before connecting. Modified-server prototypes and compatibility adapters do not satisfy that gate.
 
 ## Product contract
 
@@ -172,4 +172,4 @@ Proposed eventual commands: `doctor`, `dev`, `build`, `bundle --recipe`, and `te
 
 ## First implementation decision
 
-Start with the capability lab and a comparison of OpenSSH/WASM and Go/WASM. Use the selected engine in a target-native WSS experiment before building optional compatibility adapters. Keep the ordinary-tab app as the main product, and preserve the independently testable unchanged-server direct-mode acceptance test. See the expanded research roadmap for dependencies and stopping rules.
+Start by establishing whether an ordinary tab can reach an unchanged third-party SSH endpoint with no relay or helper. Record any concrete browser API blocker before choosing an implementation path. OpenSSH/WASM versus Go/WASM is independent protocol-engine work; neither grants TCP access. Target-native WSS, IWA, and BYO relays are optional paths and must not substitute for the core connection requirement. See the expanded research roadmap for dependencies and stopping rules.
