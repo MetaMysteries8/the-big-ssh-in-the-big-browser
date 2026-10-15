@@ -14,6 +14,8 @@ A terminal screenshot alone does not establish a direct connection. Claims about
 
 Keep each change focused. Describe the problem, behavior, and relevant validation. Discuss major architecture changes in an issue first. Do not commit credentials, personal connection profiles, signing keys, or private traffic captures. Use synthetic fixtures and redact identifying data from reports.
 
+Use a topic branch and pull request; the default branch is protected. Changes require owner review, with an explicit administrator override available through a pull request. See [repository security configuration](docs/REPOSITORY-SECURITY.md) for the review and workflow policies.
+
 There is no application build or test suite yet. The startup API file is a design sketch; its JavaScript syntax can be checked with:
 
 ```sh
