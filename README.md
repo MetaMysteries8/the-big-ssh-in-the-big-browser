@@ -4,6 +4,8 @@ An open-source browser SSH terminal with a long-term goal: **direct SSH, zero re
 
 Users should be able to choose their own compatibility transports, including relays and Isolated Web Apps (IWAs), and configure their workspace with a JavaScript setup kit.
 
+The primary implementation path is now an ordinary browser tab plus an extension and a small local TCP connector. It connects from the user's device to unchanged SSH servers. An explicit relay mode will support users who prefer to connect without installing the connector, when a relay endpoint is available. See the [local connector design](docs/LOCAL-CONNECTOR.md).
+
 ## Status
 
 **Early research and repository setup. There is no working SSH client yet.**
@@ -16,7 +18,7 @@ See the [engineering plan](docs/PLAN.md) for evidence, architecture, experiments
 
 - An ordinary-tab terminal interface with profiles, local host-key verification, and credential storage.
 - An SSH engine running in the browser, initially evaluating the existing OpenSSH WebAssembly port.
-- Explicit transport adapters: user-supplied relay compatibility, optional IWA direct connections, and a research track for ordinary-tab direct access.
+- Explicit transport adapters: the primary local connector, optional relay and IWA modes, and a research track for helper-free ordinary-tab direct access.
 - A JavaScript setup kit for startup connections, terminal layouts, lifecycle hooks, and manual actions.
 - A tested browser/server/authentication compatibility matrix.
 
@@ -24,12 +26,13 @@ See the [engineering plan](docs/PLAN.md) for evidence, architecture, experiments
 
 - [Engineering plan and roadmap](docs/PLAN.md)
 - [Transport research and experiment backlog](docs/TRANSPORT-RESEARCH.md)
+- [Local connector architecture and first-run modes](docs/LOCAL-CONNECTOR.md)
 - [32-option transport catalog with primary sources](docs/transport-options.json)
 - [Proposed startup API](docs/startup-api.example.mjs) — design sketch, not an implemented SDK
 - [Contributing](CONTRIBUTING.md)
 - [Security reporting](SECURITY.md)
 
-There is no install or development-server command yet. The first implementation milestone is a browser networking capability lab and an OpenSSH WASM integration spike.
+There is no install or development-server command yet. The first implementation milestone is an extension/native-host transport spike against unchanged SSH, followed by browser SSH engine integration.
 
 ## Design commitments
 

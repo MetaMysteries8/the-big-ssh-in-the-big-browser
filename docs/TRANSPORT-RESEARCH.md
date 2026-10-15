@@ -6,9 +6,9 @@ Evidence is documentary research, existing project documentation, and design inf
 
 ## Recommendation
 
-The core use case is an ordinary browser tab connecting to an existing third-party SSH endpoint that the user cannot modify. Start by investigating the browser-to-unchanged-server transport itself. A custom listener on a test server does not validate that use case. Compare existing browser SSH engines only as reusable protocol work, without implying that choosing an engine resolves network access.
+The user now accepts an extension plus a small local connector. Make that the primary practical implementation: ordinary-tab terminal and SSH engine, with approved TCP sockets opened from the user's device. This supports unchanged third-party endpoints without a remote relay. Provide an explicit optional relay path for no-install users when an endpoint is available. See [LOCAL-CONNECTOR.md](LOCAL-CONNECTOR.md) for the accepted architecture and source-IP behavior.
 
-Target-native WSS, IWA direct TCP, and BYO relays are optional research or compatibility paths. None is a substitute for the main requirement. Do not prioritize building a modified SSH server or deploying a relay as the project's first working product. The immediate deliverable is transport feasibility evidence against unchanged endpoints, including an explicit blocker if the required capability remains unavailable.
+The helper-free ordinary-tab goal remains separate platform research. Target-native WSS cannot connect to unchanged servers and stays parked. IWA remains an optional installed runtime. Do not make a project-hosted relay a prerequisite for the local mode, and do not silently switch modes or claim a remote relay preserves the user's source IP.
 
 ## Concrete use case: existing temporary sandbox entry points
 
@@ -156,7 +156,7 @@ Native agents, PKCS#11, OS Kerberos credentials, ProxyCommand processes, smart c
 
 ## Experiments, evidence, and stopping rules
 
-### E00: Capability lab and negative controls — first
+### E00: Capability lab and negative controls — helper-free platform research
 
 Create a self-contained diagnostic page and a controlled SSH fixture. Record actual browser/OS versions, context, available constructors, permissions, and failures. Test stock SSH on its usual port and an allowed alternate port to separate port blocking from protocol mismatch. Capture server-side bytes for authorized test connections. Check WebSocket, fetch, and WebRTC assumptions with minimal cases; no subnet scanning.
 
@@ -167,6 +167,10 @@ Deliverable: versioned result JSON, reproduction steps, and packet/log evidence.
 Build OpenSSH/WASM and Go/WASM spikes against the same test transport. Demonstrate actual SSH negotiation, host-key rejection, a software-key login, keyboard-interactive prompts, PTY resize, and clean disconnect. The fixture transport can be in-memory or explicitly bridged; label it. Measure initialization and queue/memory behavior rather than estimating performance from language choice.
 
 Deliverable: an engine decision record and a minimal reusable binding. Stop extracting a candidate if its required runtime cannot support the planned deployment or maintenance cost is clearly worse without essential compatibility benefits.
+
+### E10: Extension and local connector — primary implementation spike
+
+Prototype native messaging, destination grants, session-scoped byte transport, queue limits, and teardown against a controlled unchanged SSH server. Then attach a browser SSH engine and demonstrate host-key rejection and real authentication. Measure the source address the server sees against a native direct-connection baseline, including a test where browser HTTPS and native TCP have different routing policies. Record installation steps and actual browser/OS coverage. This accepted local-helper milestone does not claim helper-free browser TCP. See [LOCAL-CONNECTOR.md](LOCAL-CONNECTOR.md).
 
 ### E02: Native WSS target — optional modified-server research
 
@@ -204,13 +208,13 @@ A release can claim a compatibility mode once its checks pass. The ultimate dire
 
 ## Implementation order and project records
 
-1. Establish browser-to-unchanged-SSH-server feasibility with the capability lab, a controlled stock SSH fixture, and a result schema. Use the third-party temporary-sandbox scenario as the acceptance requirement, without provisioning real remote environments merely to test the idea.
-2. If a viable direct transport is found, demonstrate SSH negotiation against unchanged endpoints before expanding the UI. If it is not found, publish the concrete API blocker and investigate browser-platform changes; do not present a modified server as progress on that connection requirement.
-3. Compare the two engines as independent reusable client work. A working in-memory or relayed engine test is explicitly not a direct-transport pass.
-4. Build the ordinary-tab terminal, startup recipes, and sandbox around a proven transport, or release them only with an honest compatibility-only label.
-5. Keep IWA direct TCP, BYO relay adapters, and provider-specific existing APIs as explicit optional compatibility work.
-6. Park target-native WSS and the other modified-server transports unless that separate product variant is wanted. They cannot unlock arbitrary third-party SSH entry points.
-7. Pursue a minimal browser API proposal if platform changes are necessary. A prototype custom browser cannot establish support in all unmodified browsers.
+1. Run E10: extension/native-host transport to an unchanged SSH fixture, including source-IP behavior, user destination grants, and connection teardown.
+2. Run E01 over the transport interface, choose the browser SSH engine, and demonstrate a real login through the local connector.
+3. Build the terminal, profiles, startup recipes, and validated sandbox around that local path. Ship clear extension/connector detection and one-time setup instructions.
+4. Add explicit no-install relay mode using a user-supplied or deployment-configured endpoint. Show relay source-IP behavior before connection; operating a public relay is a separate decision.
+5. Validate desktop browser/OS coverage, then investigate other platforms, IWA, and provider-specific adapters as separate paths.
+6. Keep E00 and helper-free raw-TCP platform research open. Neither the accepted local bridge nor a relayed engine test passes that stricter ultimate test.
+7. Park modified-target transports unless that separate variant is wanted. No target-side listener is required for the primary local mode.
 
 Suggested directories: `experiments/capabilities/`, `experiments/engines/`, `experiments/target-native/`, `tests/fixtures/`, and `docs/results/`. They describe future work; this documentation change does not create functioning experiments.
 

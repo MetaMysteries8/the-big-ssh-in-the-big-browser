@@ -2,11 +2,13 @@
 
 Planning status: 2026-10-15. No SSH client or direct-connection proof has been implemented yet.
 
-For the expanded transport survey, engine choices, and ordered experiment backlog, read [TRANSPORT-RESEARCH.md](TRANSPORT-RESEARCH.md) and the [32-option catalog](transport-options.json). The first gate is ordinary-tab connectivity to unchanged third-party SSH endpoints, including temporary-sandbox entry points that cannot be configured before connecting. Modified-server prototypes and compatibility adapters do not satisfy that gate.
+The accepted primary implementation is now a browser tab plus extension and local TCP connector; see [LOCAL-CONNECTOR.md](LOCAL-CONNECTOR.md). It must reach unchanged third-party SSH endpoints without a remote relay or target setup. For the broader survey, read [TRANSPORT-RESEARCH.md](TRANSPORT-RESEARCH.md) and the [32-option catalog](transport-options.json). Helper-free ordinary-tab connectivity remains the separate ultimate research goal.
 
 ## Product contract
 
 Build an open-source SSH terminal whose main interface runs in an ordinary browser tab. Users can choose their own compatibility transports, including relays or an installed Isolated Web App (IWA). These are optional modes, not completion of the ultimate goal.
+
+The user explicitly accepts a one-time extension/local-connector installation as the primary practical path. Provide an explicit relay alternative for users who want no local installation, when a configured relay is available. Preserve the distinction between SSH authentication identity and TCP source IP. No project-operated relay is required or provisioned by this plan.
 
 **Ultimate acceptance test:** an ordinary, unmodified browser tab connects to an unchanged, directly reachable SSH server, with no relay, native helper, installed privileged app, extension, special browser flags, or server-side protocol bridge. Repeat across the supported browser engines. The aspirational target is all browsers; a published versioned test matrix must define what has actually passed.
 
@@ -138,8 +140,8 @@ Browser matrix: test actual Chrome, Firefox, and Safari releases; test Edge and 
 
 ## Milestones and exit criteria
 
-1. **Capability lab:** versioned browser capability report and minimal experiments. Separate proven direct paths, compatibility paths, and unsupported paths. Record the ordinary-tab TCP blocker openly.
-2. **Usable tab client:** local terminal UI, extracted WASM SSH engine, explicit BYO relay adapter, real login against test SSH servers, and browser-side host-key verification. This is an interim compatibility release, not completion of the final challenge.
+1. **Local transport spike:** browser extension/native-host handshake, approved direct TCP access to a controlled unchanged SSH server, correct bytes, teardown, and measured source-address behavior. Record helper and browser/OS requirements.
+2. **Usable tab client:** terminal UI, selected WASM SSH engine, local connector, real login against test SSH servers, and browser-side host-key verification. Add an explicit BYO/deployment-configured relay alternative without source-IP preservation claims.
 3. **Relay-free reference build:** optional signed IWA, real direct SSH login, and traffic evidence. Keep it separate from ordinary-tab claims.
 4. **Setup kit:** profiles, data recipes, validated JavaScript sandbox, lifecycle hooks, safe action retry behavior, configuration import/export, and command palette.
 5. **Compatibility and hardening:** broaden the server/auth/browser matrix, test memory/backpressure and malicious terminal data, audit dependencies, and verify bundled offline behavior.
@@ -172,4 +174,4 @@ Proposed eventual commands: `doctor`, `dev`, `build`, `bundle --recipe`, and `te
 
 ## First implementation decision
 
-Start by establishing whether an ordinary tab can reach an unchanged third-party SSH endpoint with no relay or helper. Record any concrete browser API blocker before choosing an implementation path. OpenSSH/WASM versus Go/WASM is independent protocol-engine work; neither grants TCP access. Target-native WSS, IWA, and BYO relays are optional paths and must not substitute for the core connection requirement. See the expanded research roadmap for dependencies and stopping rules.
+Start with the accepted extension/local-connector path against unchanged SSH. Keep SSH execution and host-key verification in the browser, and use the connector only for approved raw TCP streams. Compare OpenSSH/WASM and Go/WASM for the browser engine. Provide explicit optional relay mode for users declining installation, with accurate source-IP disclosure. Continue helper-free networking research separately; do not require target-native WSS or server changes.

@@ -2,6 +2,7 @@
   "schemaVersion": 1,
   "researchDate": "2026-10-15",
   "evidenceLevel": "Documentary research and design inferences only; no runtime transport experiments completed.",
+  "acceptedImplementation": "Ordinary-tab SSH with an extension and local TCP connector is the primary practical path. Optional no-install relay mode requires an explicit relay endpoint and changes source-IP behavior. The stricter helper-free goal remains separate research.",
   "strictGoal": "Ordinary unmodified tab; unchanged directly reachable SSH-2 server; no application relay or local bridge; cross-browser interoperability.",
   "scope": "32 candidate mechanisms and variants grouped by architectural boundary; not a proof that every future invention has been enumerated.",
   "sources": {
@@ -76,6 +77,10 @@
     "native": {
       "title": "Chrome extension native messaging",
       "url": "https://developer.chrome.com/docs/extensions/develop/concepts/native-messaging"
+    },
+    "nativeFirefox": {
+      "title": "Firefox extension native messaging",
+      "url": "https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_messaging"
     },
     "electron": {
       "title": "Electron native process model",
@@ -318,16 +323,17 @@
     },
     {
       "id": "T12",
-      "name": "Extension plus native messaging",
+      "name": "Extension plus local TCP connector",
       "family": "Installed runtime",
-      "status": "Compatibility",
+      "status": "Primary path",
       "client": "Tab plus extension/helper",
       "server": "Unchanged",
       "relay": "Yes, client-local",
-      "reason": "Useful OS integration, but a native host supplies capabilities absent from the tab.",
-      "experiment": "Later",
+      "reason": "Accepted primary path: browser SSH uses approved native-messaging byte streams; TCP leaves the user's device under its normal network routing.",
+      "experiment": "E10",
       "sourceIds": [
-        "native"
+        "native",
+        "nativeFirefox"
       ]
     },
     {
