@@ -1,0 +1,7 @@
+* text=auto eol=lf
+*.wasm binary
+*.png binary
+*.jpg binary
+*.ico binary
+*.wbn binary
+*.swbn binary

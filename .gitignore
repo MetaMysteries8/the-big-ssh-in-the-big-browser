@@ -1,0 +1,34 @@
+# Dependencies and generated output
+node_modules/
+dist/
+build/
+coverage/
+test-results/
+playwright-report/
+*.tsbuildinfo
+*.log
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+.bigssh/
+secrets/
+private-keys/
+id_rsa
+id_ecdsa
+id_ed25519
+*.pem
+*.key
+
+# Generated web bundles and local signing material
+*.wbn
+*.swbn
+
+# Machine and editor state
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.codex/
+.agents/
