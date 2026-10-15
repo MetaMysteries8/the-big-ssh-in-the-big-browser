@@ -4,6 +4,8 @@ Research date: 2026-10-15. This extends [PLAN.md](PLAN.md). The full [32-option 
 
 Evidence is documentary research, existing project documentation, and design inference. No transport experiment or cross-browser SSH login has been run for this project. Candidate does not mean implemented or validated. This survey covers the relevant architectural families and many variants, not every possible future invention.
 
+**Live test limit:** one Railway/dev.new end-to-end attempt total for this project, with no automatic retries. Use controlled local SSH fixtures for development and browser matrices; see [TESTING.md](TESTING.md). No live attempt has been used by this project.
+
 ## Recommendation
 
 The user now accepts an extension plus a small local connector. Make that the primary practical implementation: ordinary-tab terminal and SSH engine, with approved TCP sockets opened from the user's device. This supports unchanged third-party endpoints without a remote relay. Provide an explicit optional relay path for no-install users when an endpoint is available. See [LOCAL-CONNECTOR.md](LOCAL-CONNECTOR.md) for the accepted architecture and source-IP behavior.

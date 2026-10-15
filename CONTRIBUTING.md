@@ -2,6 +2,8 @@
 
 This project is in its research phase. Start with [the engineering plan](docs/PLAN.md).
 
+Live Railway/dev.new testing is limited to **one end-to-end attempt total across the project**, with no automatic retry. Use local SSH fixtures for development and CI. Read [the testing policy](docs/TESTING.md) before any live endpoint access.
+
 Useful first contributions include small browser networking experiments, analysis of the OpenSSH WASM integration, transport protocol proposals, and reproducible SSH interoperability results.
 
 ## Research reports

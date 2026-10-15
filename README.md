@@ -27,6 +27,7 @@ See the [engineering plan](docs/PLAN.md) for evidence, architecture, experiments
 - [Engineering plan and roadmap](docs/PLAN.md)
 - [Transport research and experiment backlog](docs/TRANSPORT-RESEARCH.md)
 - [Local connector architecture and first-run modes](docs/LOCAL-CONNECTOR.md)
+- [Testing strategy and one-attempt Railway limit](docs/TESTING.md)
 - [32-option transport catalog with primary sources](docs/transport-options.json)
 - [Proposed startup API](docs/startup-api.example.mjs) — design sketch, not an implemented SDK
 - [Contributing](CONTRIBUTING.md)

@@ -58,4 +58,6 @@ Build a minimal extension/native-host transport spike against a controlled, unch
 
 Verify that the target's observed source address matches a native direct connection from the same machine under the same network configuration. Separately test whether browser HTTPS uses the same egress. Use controlled fixtures first; do not create a Railway/dev.new environment without a separate request.
 
+Railway has a project-wide budget of **one live end-to-end test total**, with no automatic retry. All development and browser-matrix testing uses local fixtures. Follow [TESTING.md](TESTING.md), including reserving the attempt before connecting and treating uncertain outcomes as consumed.
+
 The milestone succeeds when the ordinary-tab UI reaches unchanged SSH through the explicitly installed local connector, with no remote session relay and no server modifications. Record browser/OS versions and distribution/setup requirements. Helper-free ordinary-tab SSH remains a separate long-term platform research goal.
