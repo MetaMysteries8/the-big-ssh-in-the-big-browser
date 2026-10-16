@@ -70,7 +70,7 @@ This module is trusted application source and can run code at import time. Do no
 
 ## Build outputs
 
-- `dist/web`: static browser assets, `ssh.wasm`, worker, and matching Go `wasm_exec.js`.
+- `dist/web`: static browser assets, `ssh.wasm`, worker, matching Go `wasm_exec.js`, and `licenses/` for standalone static distribution.
 - `dist/extension`: unpacked development extension.
 - `dist/connector`: native connector for the build host's OS/architecture.
 - `dist/licenses`: runtime dependency licenses; keep these with distributions.

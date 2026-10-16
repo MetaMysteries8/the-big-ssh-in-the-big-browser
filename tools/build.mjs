@@ -30,6 +30,11 @@ for (const [source, name] of [
   [join(root, 'node_modules/@xterm/addon-fit/LICENSE'), 'XTERM-FIT-LICENSE'],
   [join(root, 'node_modules/@xterm/addon-web-links/LICENSE'), 'XTERM-WEB-LINKS-LICENSE'],
 ]) await cp(source, join(root, 'dist/licenses', name));
+// The web directory is independently deployable, so it must carry notices
+// even when it is distributed without the connector/extension directories.
+await cp(join(root, 'LICENSE'), join(root, 'dist/licenses/BIGSSH-LICENSE'));
+await cp(join(root, 'THIRD_PARTY_NOTICES.md'), join(root, 'dist/licenses/NOTICES.md'));
+await cp(join(root, 'dist/licenses'), join(assets, 'licenses'), { recursive: true });
 await build({ configFile: join(root, 'vite.config.js') });
 const manifest = JSON.parse(await readFile(join(root, 'apps/extension/manifest.json'), 'utf8'));
 await writeFile(join(root, 'dist/BUILD.json'), JSON.stringify({ version: '0.1.0', extensionVersion: manifest.version, components: ['web', 'connector', 'extension'] }, null, 2) + '\n');
