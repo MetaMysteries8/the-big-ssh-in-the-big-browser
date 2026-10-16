@@ -12,6 +12,8 @@ The [machine-readable result](windows-chromium.json) records 13 passing checks: 
 
 Native Go tests separately cover framed JSON validation, binary integrity/partial writes, target isolation, receive-credit limits and overflow, dial cancellation, protocol rejection, and socket closure on native-messaging EOF. Node tests enforce origin/frame/destination grants and inert startup defaults. `npm audit` reported zero known npm vulnerabilities at this run; this is not a security audit of the application or its Go dependencies.
 
+GitHub's [Windows/Linux CI run](https://github.com/MetaMysteries8/the-big-ssh-in-the-big-browser/actions/runs/38829160235) passed at commit `8394b6a`: both OSes built the native connector and browser WASM app, both ran connector/policy tests, and Linux passed Go's race detector. This is build/unit coverage; native-messaging browser integration remains the local Windows result above.
+
 Unverified: other browser/OS native integrations, remote routing differences, IPv6/DNS interoperability, encrypted-key and keyboard-interactive flows, other SSH servers/authentication mechanisms, full-screen applications, long sessions, and the live Railway flow. The isolated JavaScript recipe VM, relay/IWA adapters, and release packaging are not part of this prototype.
 
 Railway/dev.new attempts used: **0 of 1**. Local fixture retries do not spend that live budget.

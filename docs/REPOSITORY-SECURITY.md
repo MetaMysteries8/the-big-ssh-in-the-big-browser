@@ -22,7 +22,7 @@ These controls govern merges into the protected default branch. A write collabor
 - Workflows from all outside contributors require maintainer approval.
 - External Actions are restricted to GitHub-owned actions, pinned to full commit SHAs. Additional actions require an explicit allowlist change.
 - CI builds and tests on GitHub-hosted Windows and Linux runners with read-only tokens and commit-pinned GitHub-owned actions. Dependabot checks npm, Go, and Actions updates weekly. No repository secrets or self-hosted runners are required.
-- Future checks must be added and observed passing before they become required merge checks.
+- Windows and Linux `Build and test` checks are required for merges into main, tied to the GitHub Actions integration. Both were observed passing before enforcement was enabled. Branches must be up to date; the integrity ruleset has no bypass. Future required checks must likewise pass before being added.
 
 ## Vulnerabilities and secrets
 
