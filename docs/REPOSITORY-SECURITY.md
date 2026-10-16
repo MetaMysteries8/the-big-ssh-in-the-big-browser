@@ -21,7 +21,7 @@ These controls govern merges into the protected default branch. A write collabor
 - Workflow tokens default to read access and cannot approve pull requests.
 - Workflows from all outside contributors require maintainer approval.
 - External Actions are restricted to GitHub-owned actions, pinned to full commit SHAs. Additional actions require an explicit allowlist change.
-- There are no repository workflows, secrets, or self-hosted runners configured by this setup.
+- CI builds and tests on GitHub-hosted Windows and Linux runners with read-only tokens and commit-pinned GitHub-owned actions. Dependabot checks npm, Go, and Actions updates weekly. No repository secrets or self-hosted runners are required.
 - Future checks must be added and observed passing before they become required merge checks.
 
 ## Vulnerabilities and secrets

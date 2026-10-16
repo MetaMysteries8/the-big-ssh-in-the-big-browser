@@ -1,6 +1,6 @@
 # The Big SSH in the Big Browser: engineering plan
 
-Planning status: 2026-10-15. No SSH client or direct-connection proof has been implemented yet.
+Status: 2026-10-15. The Windows/Chromium local-connector prototype now reaches unchanged OpenSSH, with browser-side WASM SSH, host trust, password/key authentication, terminal I/O, resize, and measured source-address behavior. [Reproduction and coverage](DEVELOPMENT.md). Helper-free ordinary-tab direct TCP remains unresolved.
 
 The accepted primary implementation is now a browser tab plus extension and local TCP connector; see [LOCAL-CONNECTOR.md](LOCAL-CONNECTOR.md). It must reach unchanged third-party SSH endpoints without a remote relay or target setup. For the broader survey, read [TRANSPORT-RESEARCH.md](TRANSPORT-RESEARCH.md) and the [32-option catalog](transport-options.json). Helper-free ordinary-tab connectivity remains the separate ultimate research goal.
 
@@ -54,7 +54,7 @@ The IWA reuses the client packages in its own privileged runtime. Moving tab tra
 ### Client components
 
 1. **Terminal UI:** evaluate xterm.js for rendering, keyboard input, resize, Unicode, selection, accessibility, and browser-specific behavior. Keep its renderer replaceable. Bundle assets locally. Treat terminal output, titles, links, and escape-sequence payloads as untrusted. [xterm.js security guidance](https://xtermjs.org/docs/guides/security/)
-2. **SSH engine:** evaluate the existing OpenSSH WASM port first. Pin upstream revisions, publish the build recipe, and track the enabled algorithms and build options. Audit dependence on libapps UI, storage, workers, and syscall handlers before extracting it. Do not assume native OpenSSH feature parity.
+2. **SSH engine:** the first working spike uses Go `x/crypto/ssh` v0.58.0 in a WASM worker. Compare it with the existing OpenSSH WASM port before claiming broad feature coverage. Pin upstream revisions, publish build recipes, and track algorithms and build options. Audit dependence on libapps UI, storage, workers, and syscall handlers before extracting the OpenSSH port. Neither engine choice implies native OpenSSH feature parity.
 3. **Byte transport:** asynchronous readable/writable byte streams, cancellation, bounded queues, backpressure, connection metadata, and truthful capability reporting. Preserve arbitrary chunk boundaries and partial writes. A future direct adapter should not require changes to terminal or authentication code.
 4. **Session coordinator:** explicit connection state machine, host-key verification, authentication prompts, terminal channels, lifecycle events, and reconnect decisions. Each session gets its own engine state.
 5. **Local state:** profile configuration, known-host records, encrypted private-key storage, and recipe configuration. Keep unlocked secrets transient; locking disposes the engine that held them. Do not claim reliable zeroization of JavaScript memory. Public configuration exports exclude secrets by default.
@@ -170,7 +170,7 @@ docs/                     architecture, limitations, transport protocols
 
 Repository name: `the-big-ssh-in-the-big-browser`. Project-authored code and documentation use the MIT license. Preserve each dependency's own license and notices when introducing third-party code.
 
-Proposed eventual commands: `doctor`, `dev`, `build`, `bundle --recipe`, and `test:interop`, exposed through a documented package script or CLI. They do not exist yet. Setup tools prepare assets and configuration; any optional tool that forwards traffic must declare itself as a relay.
+Implemented commands: `npm run build`, `npm run dev`, `npm run preview`, `npm test`, and `npm run test:e2e`. Proposed later commands include `doctor`, `bundle --recipe`, and a broader interop runner. Setup tools prepare assets and configuration; any optional tool that forwards traffic must declare itself as a relay.
 
 ## First implementation decision
 

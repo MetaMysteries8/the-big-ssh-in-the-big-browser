@@ -1,6 +1,10 @@
 # Security
 
-This project is experimental and has no working SSH client or production release yet.
+This project is an experimental SSH client with a working local-connector prototype. There is no production release or completed security audit yet.
+
+Trust the web app you pair with the extension: it receives your SSH credentials and terminal session. Use HTTPS for remotely hosted builds. Origin/destination grants restrict connector access; they do not protect credentials from a compromised copy of the authorized application. Keep private keys and terminal recordings out of issues and Git commits. JavaScript/Go garbage collection does not guarantee secret zeroization.
+
+The native connector uses stdio native messaging, opens only TCP streams, and has no listening HTTP/WebSocket service. A session remains under the authority of its paired app origin. Removing a destination grant blocks subsequent connection requests; disconnect an existing session explicitly when revoking access.
 
 ## Reporting a vulnerability
 

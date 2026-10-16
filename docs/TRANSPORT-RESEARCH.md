@@ -2,7 +2,7 @@
 
 Research date: 2026-10-15. This extends [PLAN.md](PLAN.md). The full [32-option catalog](transport-options.json) records the candidate mechanisms, limitations, source links, and next experiments.
 
-Evidence is documentary research, existing project documentation, and design inference. No transport experiment or cross-browser SSH login has been run for this project. Candidate does not mean implemented or validated. This survey covers the relevant architectural families and many variants, not every possible future invention.
+The original survey is documentary research, existing project documentation, and design inference. The extension/local-connector candidate now has a working Windows/Chromium proof against unchanged local OpenSSH; see [measured coverage](DEVELOPMENT.md). Other candidates remain unvalidated unless explicitly recorded otherwise. This survey covers the relevant architectural families and many variants, not every possible future invention.
 
 **Live test limit:** one Railway/dev.new end-to-end attempt total for this project, with no automatic retries. Use controlled local SSH fixtures for development and browser matrices; see [TESTING.md](TESTING.md). No live attempt has been used by this project.
 
@@ -146,7 +146,7 @@ Evaluate QuickJS/WASM in its own Worker, with only brokered profile/session APIs
 
 For IWA, package custom executable hooks in the signed build and select data recipes at runtime. Do not route downloaded privileged scripts through an interpreter to evade the platform's self-contained-code policy. [IWA policy](https://developer.chrome.com/docs/iwa/developer-policy)
 
-Proposed setup commands are `doctor`, `dev`, `build`, and `bundle --recipe`. They are not implemented. A development asset server is allowed to serve files; it must never secretly forward SSH traffic. Credential imports and connection triggers should work through a user gesture, profile ID, or command palette. Keep credentials out of deep-link URLs. OS-login startup is a separate platform integration, not the meaning of app startup.
+`npm run dev` and `npm run build` now exist; `doctor` and `bundle --recipe` remain proposed. A development asset server serves files and never forwards SSH traffic. Credential imports and connection triggers should work through a user gesture, profile ID, or command palette. Keep credentials out of deep-link URLs. OS-login startup is a separate platform integration, not the meaning of app startup.
 
 ## Authentication and interoperability scope
 
@@ -171,6 +171,8 @@ Build OpenSSH/WASM and Go/WASM spikes against the same test transport. Demonstra
 Deliverable: an engine decision record and a minimal reusable binding. Stop extracting a candidate if its required runtime cannot support the planned deployment or maintenance cost is clearly worse without essential compatibility benefits.
 
 ### E10: Extension and local connector — primary implementation spike
+
+Partial runtime result: Windows/Chromium to unchanged local OpenSSH passes authorization, host trust, password/Ed25519 login, terminal I/O/resize, teardown, and native source-address comparison. IPv6/DNS and browser HTTPS/native routing divergence still need coverage; see [DEVELOPMENT.md](DEVELOPMENT.md). This does not validate other browsers or helper-free connectivity.
 
 Prototype native messaging, destination grants, session-scoped byte transport, queue limits, and teardown against a controlled unchanged SSH server. Then attach a browser SSH engine and demonstrate host-key rejection and real authentication. Measure the source address the server sees against a native direct-connection baseline, including a test where browser HTTPS and native TCP have different routing policies. Record installation steps and actual browser/OS coverage. This accepted local-helper milestone does not claim helper-free browser TCP. See [LOCAL-CONNECTOR.md](LOCAL-CONNECTOR.md).
 
@@ -218,7 +220,7 @@ A release can claim a compatibility mode once its checks pass. The ultimate dire
 6. Keep E00 and helper-free raw-TCP platform research open. Neither the accepted local bridge nor a relayed engine test passes that stricter ultimate test.
 7. Park modified-target transports unless that separate variant is wanted. No target-side listener is required for the primary local mode.
 
-Suggested directories: `experiments/capabilities/`, `experiments/engines/`, `experiments/target-native/`, `tests/fixtures/`, and `docs/results/`. They describe future work; this documentation change does not create functioning experiments.
+Future research directories include `experiments/capabilities/`, `experiments/engines/`, `experiments/target-native/`, and `docs/results/`. The implemented fixture is in `tests/fixtures/openssh`, with the browser runner in `tools/e2e.mjs`.
 
 Every experiment record includes the hypothesis, source revision, environment, exact command/setup, endpoint changes, process/data-path diagram, observed result, evidence location, and next decision. Use synthetic/redacted captures. Keep a simple **not started / running / passed / failed / unsupported** status; never present documentary research as a passed runtime test.
 

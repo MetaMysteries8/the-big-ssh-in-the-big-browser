@@ -1,6 +1,6 @@
 # Local connector: primary implementation path
 
-Decision date: 2026-10-15. The user accepts an ordinary browser tab plus an extension and a small local connector. Local operation is the preferred path; an optional relay mode should serve people who want to connect without installing the connector. This is a design decision, not an implemented or tested connection.
+Decision date: 2026-10-15. The user accepts an ordinary browser tab plus an extension and a small local connector. Local operation is the preferred path; an optional relay mode should serve people who want to connect without installing the connector. The first Windows/Chromium local implementation now passes real OpenSSH fixture tests; relay mode remains planned. [Setup and measured coverage](DEVELOPMENT.md).
 
 ## Two connection modes
 
