@@ -9,7 +9,8 @@
     "preview": "vite preview --host 127.0.0.1 --port 4173 --strictPort",
     "test": "node tools/test.mjs",
     "test:e2e": "node tools/e2e.mjs",
-    "lab:direct": "node tools/direct-tab-lab.mjs"
+    "lab:direct": "node tools/direct-tab-lab.mjs",
+    "lab:preflight": "node tools/preflight-lab.mjs"
   },
   "dependencies": {
     "@xterm/addon-fit": "0.11.0",
