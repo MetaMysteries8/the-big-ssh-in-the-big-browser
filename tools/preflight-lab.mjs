@@ -64,8 +64,10 @@ async function sequence(daemon, origin) {
     assert.equal(result.primer.repeat.text, 'PRIMED_HTTP_CONTROL');
     assert.equal(preflights, 1, 'The first custom method must trigger preflight.');
     assert.equal(primer.requests.filter(request => request.method === 'OPTIONS').length, 1, 'The repeat must use a verified preflight cache entry.');
+    const beforeHeaderRemoval = primer.requests.length;
     result.primer.headerRemoval = await page.evaluate(() => window.labRequest('strip-headers'));
-    result.primer.hostStillPresent = primer.requests.at(-1)?.host === '127.0.0.1:2225';
+    result.primer.headerRemovalRequests = primer.requests.slice(beforeHeaderRemoval);
+    result.primer.hostStillPresent = result.primer.headerRemovalRequests.some(request => request.method === SSH_METHOD && request.host === '127.0.0.1:2225');
     result.primer.requests = [...primer.requests]; result.primer.cacheVerified = true;
     await primer.close(); primer = undefined;
     docker(['run', '--detach', '--rm', '--name', container, '--publish', '127.0.0.1:2225:22/tcp', '--env', `LAB_DAEMON=${daemon}`, 'bigssh-preflight-lab:dev']); started = true;
@@ -101,6 +103,8 @@ async function sequence(daemon, origin) {
 
     const unprimed = await pageFor(origin);
     await measure('fresh-browser-method', () => unprimed.page.evaluate(() => window.labRequest()), false, unprimed.page);
+    const worker = await measure('service-worker-preflight-attempt', () => unprimed.page.evaluate(() => window.labWorkerProbe()), false, unprimed.page);
+    assert.equal(worker.entry.result.positiveControl, 'LOCAL_SW_CONTROL', 'The worker must actually control the page before its network result is interpreted.');
     await closeBrowser(unprimed.browser);
 
     const baseline = await measure('native-identification', () => nativeProbe(Buffer.from('SSH-2.0-BigSSH_Control\r\n')), true);
@@ -139,10 +143,12 @@ try {
   docker(['build', '--tag', 'bigssh-preflight-lab:dev', join(root, 'experiments/preflight')]);
   report.setup.fixtureImage = docker(['image', 'inspect', 'bigssh-preflight-lab:dev', '--format', '{{.Id}}']);
   const probe = await readFile(join(root, 'experiments/preflight/probe.js'));
+  const worker = await readFile(join(root, 'experiments/preflight/worker.js'));
   assets = createServer((request, response) => {
     if (request.url === '/probe.js') { response.writeHead(200, { 'Content-Type': 'text/javascript', 'Cache-Control': 'no-store' }).end(probe); return; }
+    if (request.url === '/worker.js') { response.writeHead(200, { 'Content-Type': 'text/javascript', 'Cache-Control': 'no-store' }).end(worker); return; }
     if (request.url !== '/') { response.writeHead(404).end(); return; }
-    response.writeHead(200, { 'Content-Type': 'text/html', 'Cache-Control': 'no-store' }).end('<!doctype html><meta charset="utf-8"><title>Local preflight research fixture</title><p>Local-only cooperating CORS control. No SSH relay.</p><script type="module">import {request} from "/probe.js"; window.labRequest=request;</script>');
+    response.writeHead(200, { 'Content-Type': 'text/html', 'Cache-Control': 'no-store' }).end('<!doctype html><meta charset="utf-8"><title>Local preflight research fixture</title><p>Local-only cooperating CORS control. No SSH relay.</p><script type="module">import {request,serviceWorkerProbe} from "/probe.js"; window.labRequest=request; window.labWorkerProbe=serviceWorkerProbe;</script>');
   });
   await new Promise((resolve, reject) => { assets.once('error', reject); assets.listen(0, '127.0.0.1', resolve); });
   const origin = `http://127.0.0.1:${assets.address().port}`;
