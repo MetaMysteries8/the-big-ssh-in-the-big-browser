@@ -1,0 +1,24 @@
+{
+  "name": "the-big-ssh-in-the-big-browser",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5173 --strictPort",
+    "build": "node tools/build.mjs",
+    "preview": "vite preview --host 127.0.0.1 --port 4173 --strictPort",
+    "test": "node tools/test.mjs",
+    "test:e2e": "node tools/e2e.mjs",
+    "lab:direct": "node tools/direct-tab-lab.mjs",
+    "lab:preflight": "node tools/preflight-lab.mjs"
+  },
+  "dependencies": {
+    "@xterm/addon-fit": "0.11.0",
+    "@xterm/addon-web-links": "0.12.0",
+    "@xterm/xterm": "6.0.0"
+  },
+  "devDependencies": {
+    "playwright": "1.64.1",
+    "vite": "8.3.4"
+  }
+}

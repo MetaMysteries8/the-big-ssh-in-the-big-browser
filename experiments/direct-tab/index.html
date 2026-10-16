@@ -1,0 +1,18 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Big SSH — direct-tab protocol lab</title>
+<style>
+  :root { color-scheme: dark; font: 15px/1.6 system-ui; background: #101512; color: #d8e6dc; }
+  body { max-width: 850px; margin: 60px auto; padding: 24px; }
+  h1 { font-size: 28px; font-weight: 550; } p { color: #a7b8ac; }
+  pre { white-space: pre-wrap; overflow-wrap: anywhere; border-top: 1px solid #435147; padding-top: 24px; font-size: 12px; }
+</style>
+<h1>Direct-tab protocol lab</h1>
+<p>A controlled experiment against local OpenSSH. No extension, native connector, remote relay, external STUN, or TURN is loaded. Successful HTTP/WebRTC controls do not count as SSH.</p>
+<p>The runner owns the destinations. This page accepts no arbitrary target.</p>
+<pre id="results">Waiting for the local runner…</pre>
+<script type="module">
+  import * as probes from '/probes.js';
+  window.probes = probes;
+</script>

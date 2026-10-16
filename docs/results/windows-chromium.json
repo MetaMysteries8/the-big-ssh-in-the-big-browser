@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-16T00:17:45.456Z",
+  "browser": "156.0.8078.4",
+  "os": "win32",
+  "fixture": "OpenSSH 10.2 in loopback-only Alpine container",
+  "sourceAddressMatched": true,
+  "checks": [
+    "missing extension is actionable and does not open TCP",
+    "unapproved destination blocked before TCP",
+    "untrusted SSH host key can be rejected",
+    "browser WASM authenticates to unchanged OpenSSH with password",
+    "terminal command output and source IP match native TCP baseline",
+    "terminal resize reaches the server PTY",
+    "Unicode and one MiB output pass through the bounded transport",
+    "Ctrl-C interrupts the remote foreground process",
+    "disconnect tears down the SSH session",
+    "browser WASM imports a private key and authenticates with Ed25519",
+    "credential-free SSH onboarding works when explicitly accepted by the server",
+    "changed host key is blocked without offering silent trust",
+    "unpaired web origin cannot use the connector"
+  ],
+  "railwayAttemptsUsed": 0
+}

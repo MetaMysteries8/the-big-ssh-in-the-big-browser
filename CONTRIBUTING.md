@@ -1,6 +1,8 @@
 # Contributing
 
-This project is in its research phase. Start with [the engineering plan](docs/PLAN.md).
+This project has an early local-connector implementation and an ongoing browser networking research track. Start with [development setup](docs/DEVELOPMENT.md) and [the engineering plan](docs/PLAN.md).
+
+Live Railway/dev.new testing is limited to **one end-to-end attempt total across the project**, with no automatic retry. Use local SSH fixtures for development and CI. Read [the testing policy](docs/TESTING.md) before any live endpoint access.
 
 Useful first contributions include small browser networking experiments, analysis of the OpenSSH WASM integration, transport protocol proposals, and reproducible SSH interoperability results.
 
@@ -16,10 +18,10 @@ Keep each change focused. Describe the problem, behavior, and relevant validatio
 
 Use a topic branch and pull request; the default branch is protected. Changes require owner review, with an explicit administrator override available through a pull request. See [repository security configuration](docs/REPOSITORY-SECURITY.md) for the review and workflow policies.
 
-There is no application build or test suite yet. The startup API file is a design sketch; its JavaScript syntax can be checked with:
+Run `npm test` and `npm run build` for implementation changes. The Windows native-messaging/OpenSSH browser harness is `npm run test:e2e`; see its local Docker setup in [DEVELOPMENT.md](docs/DEVELOPMENT.md). The startup API file remains a design sketch; its JavaScript syntax can be checked with:
 
 ```sh
 node --check docs/startup-api.example.mjs
 ```
 
-Add appropriate build and test instructions alongside the first implementation. Retain upstream licenses and notices whenever introducing third-party code.
+Keep build and test instructions current. Retain upstream licenses and notices whenever introducing third-party code.

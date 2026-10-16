@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Big SSH Local Connector",
+  "version": "0.1.0",
+  "description": "Connect the Big SSH browser terminal to approved TCP destinations on your own network connection.",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApuPw6ueY29ka8Qw6hK6n9yRYbVZRpC/9mTNVv42jhhP3ngez2JqVP8g64UegUuLicMDtT5PyhZtJ4crjc6FDHeqkRUxLLa6yDVWXHPKPnri3xR4xEJc7d6ungstsh9zLoy6LWyZsWpT1Loh/LR/y2B3VjwOBPT7GLG5wbh6bZVfIUrT23k1Od31153/wbAgBlkRXmgDA/WbtIDJB3a0NWHZIjm1J/E6dHKbcMQnXv49ycOrmK7HkYWHjwkGAyAwgZhM+OYMU2E+sRTQC6xextX4j/mL9PWvlTEysOh1c7rYfpXfFr6/NyrwBGFaH9KXFMfaNko3a4Kc5ONZ/UJvHpwIDAQAB",
+  "permissions": ["nativeMessaging", "storage", "scripting"],
+  "optional_host_permissions": ["https://*/*", "http://*/*"],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "action": { "default_title": "Big SSH connection permissions" },
+  "options_ui": { "page": "options.html", "open_in_tab": true },
+  "content_scripts": [{
+    "matches": ["http://localhost/*", "http://127.0.0.1/*"],
+    "js": ["content.js"],
+    "run_at": "document_start",
+    "all_frames": false
+  }]
+}

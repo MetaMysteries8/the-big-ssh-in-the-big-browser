@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Big SSH · Permissions</title><link rel="stylesheet" href="options.css"></head>
+<body>
+  <main>
+    <p class="eyebrow">BIG SSH / LOCAL CONNECTION</p>
+    <h1>Your device. Your connections.</h1>
+    <p>Pair a web app and allow its SSH destinations. The connector opens TCP from this computer; SSH and credentials stay in the browser.</p>
+    <form id="grant-form">
+      <label>Web app origin<input id="origin" type="url" value="http://127.0.0.1:5173" required></label>
+      <div class="row"><label>SSH host<input id="host" placeholder="Hostname or IP" autocomplete="off" required></label><label>Port<input id="port" type="number" min="1" max="65535" value="22" required></label></div>
+      <button type="submit">Allow this destination</button>
+    </form>
+    <p id="status" role="status"></p>
+    <h2>Allowed destinations</h2>
+    <ul id="grants"></ul>
+    <p class="note">Changing grants affects new connection requests. Close an active terminal to stop its current socket. Native connector installation is separate; see the project's setup guide.</p>
+  </main>
+  <script type="module" src="options.js"></script>
+</body></html>

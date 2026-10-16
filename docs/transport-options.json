@@ -1,0 +1,635 @@
+{
+  "schemaVersion": 1,
+  "researchDate": "2026-10-15",
+  "evidenceLevel": "Documentary research except T12: Windows/Chromium extension and local connector have passed unchanged local OpenSSH login, host-key, authorization, terminal, and source-address tests. Broader coverage remains open; see docs/DEVELOPMENT.md.",
+  "acceptedImplementation": "Ordinary-tab SSH with an extension and local TCP connector is the primary practical path. Optional no-install relay mode requires an explicit relay endpoint and changes source-IP behavior. The stricter helper-free goal remains separate research.",
+  "strictGoal": "Ordinary unmodified tab; unchanged directly reachable SSH-2 server; no application relay or local bridge; cross-browser interoperability.",
+  "scope": "32 candidate mechanisms and variants grouped by architectural boundary; not a proof that every future invention has been enumerated.",
+  "sources": {
+    "ssh": {
+      "title": "SSH transport protocol (RFC 4253)",
+      "url": "https://www.rfc-editor.org/rfc/rfc4253.html"
+    },
+    "ws": {
+      "title": "WebSockets browser API",
+      "url": "https://websockets.spec.whatwg.org/"
+    },
+    "wsWire": {
+      "title": "WebSocket framing and handshake (RFC 6455)",
+      "url": "https://www.rfc-editor.org/rfc/rfc6455.html"
+    },
+    "fetch": {
+      "title": "Fetch methods, responses, and port blocking",
+      "url": "https://fetch.spec.whatwg.org/"
+    },
+    "direct": {
+      "title": "Direct Sockets specification",
+      "url": "https://wicg.github.io/direct-sockets/"
+    },
+    "iwa": {
+      "title": "Chrome IWA introduction and distribution",
+      "url": "https://developer.chrome.com/docs/iwa/introduction"
+    },
+    "iwaPolicy": {
+      "title": "IWA executable-code restrictions",
+      "url": "https://developer.chrome.com/docs/iwa/developer-policy"
+    },
+    "wt": {
+      "title": "WebTransport specification",
+      "url": "https://www.w3.org/TR/webtransport/"
+    },
+    "rtc": {
+      "title": "WebRTC specification",
+      "url": "https://www.w3.org/TR/webrtc/"
+    },
+    "turn": {
+      "title": "TURN relay protocol (RFC 8656)",
+      "url": "https://www.rfc-editor.org/rfc/rfc8656.html"
+    },
+    "stun": {
+      "title": "STUN protocol (RFC 8489)",
+      "url": "https://www.rfc-editor.org/rfc/rfc8489.html"
+    },
+    "goSsh": {
+      "title": "Go SSH client/server transport APIs",
+      "url": "https://pkg.go.dev/golang.org/x/crypto/ssh"
+    },
+    "goWs": {
+      "title": "WebSocket-to-net.Conn adapter",
+      "url": "https://pkg.go.dev/github.com/coder/websocket#NetConn"
+    },
+    "opensshWasm": {
+      "title": "Chromium OpenSSH WASM port",
+      "url": "https://chromium.googlesource.com/apps/libapps/+/HEAD/ssh_client/README.md"
+    },
+    "wassh": {
+      "title": "WASSH transport implementations",
+      "url": "https://chromium.googlesource.com/apps/libapps/+/HEAD/wassh/docs/sockets.md"
+    },
+    "sshterm": {
+      "title": "SSH Term browser client and explicit proxy",
+      "url": "https://github.com/c2FmZQ/sshterm"
+    },
+    "sshtermDesign": {
+      "title": "SSH Term design and WebAuthn implementation claims",
+      "url": "https://github.com/c2FmZQ/sshterm/blob/main/DESIGN.md"
+    },
+    "native": {
+      "title": "Chrome extension native messaging",
+      "url": "https://developer.chrome.com/docs/extensions/develop/concepts/native-messaging"
+    },
+    "nativeFirefox": {
+      "title": "Firefox extension native messaging",
+      "url": "https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_messaging"
+    },
+    "electron": {
+      "title": "Electron native process model",
+      "url": "https://www.electronjs.org/docs/latest/tutorial/process-model"
+    },
+    "v86": {
+      "title": "v86 networking backends",
+      "url": "https://github.com/copy/v86/blob/master/docs/networking.md"
+    },
+    "usb": {
+      "title": "WebUSB device access",
+      "url": "https://developer.chrome.com/docs/capabilities/usb"
+    },
+    "serial": {
+      "title": "Web Serial device access",
+      "url": "https://developer.chrome.com/docs/capabilities/serial"
+    },
+    "ssh3": {
+      "title": "SSH3 / remote terminals over HTTP/3",
+      "url": "https://github.com/francoismichel/ssh3"
+    },
+    "mosh": {
+      "title": "Mosh SSH bootstrap and UDP transport",
+      "url": "https://mosh.org/"
+    },
+    "cloudTcp": {
+      "title": "Cloudflare Workers server-side TCP",
+      "url": "https://developers.cloudflare.com/workers/runtime-apis/tcp-sockets/"
+    },
+    "deno": {
+      "title": "Deno runtime networking",
+      "url": "https://docs.deno.com/api/deno/network/"
+    },
+    "libssh2": {
+      "title": "libssh2 custom send/receive callbacks",
+      "url": "https://libssh2.org/libssh2_session_callback_set2.html"
+    },
+    "russh": {
+      "title": "russh generic stream connection API",
+      "url": "https://docs.rs/russh/latest/russh/client/fn.connect_stream.html"
+    },
+    "ssh2": {
+      "title": "ssh2 Node.js client/server implementation",
+      "url": "https://github.com/mscdex/ssh2"
+    },
+    "quickjs": {
+      "title": "QuickJS WASM sandbox embedding",
+      "url": "https://github.com/justjake/quickjs-emscripten"
+    },
+    "webauthn": {
+      "title": "WebAuthn Level 3",
+      "url": "https://www.w3.org/TR/webauthn-3/"
+    },
+    "bluetooth": {
+      "title": "Web Bluetooth device access",
+      "url": "https://developer.chrome.com/docs/capabilities/bluetooth"
+    },
+    "hid": {
+      "title": "WebHID device access",
+      "url": "https://developer.chrome.com/docs/capabilities/hid"
+    },
+    "chromeApps": {
+      "title": "Chrome Apps migration and API status",
+      "url": "https://www.chromium.org/chrome-apps/"
+    },
+    "localNetwork": {
+      "title": "Chrome local-network restrictions and permission handling",
+      "url": "https://github.com/GoogleChrome/modern-web-guidance/blob/main/skills/modern-web-guidance/guides/security/local-network-access.md"
+    },
+    "flow": {
+      "title": "xterm.js flow control",
+      "url": "https://xtermjs.org/docs/guides/flowcontrol/"
+    }
+  },
+  "options": [
+    {
+      "id": "T01",
+      "name": "Permissioned TCP API for ordinary tabs",
+      "family": "Browser platform",
+      "status": "Research",
+      "client": "Ordinary tab",
+      "server": "Unchanged",
+      "relay": "None by design",
+      "reason": "Requires browser-vendor changes; no interoperable ordinary-tab TCP API identified.",
+      "experiment": "E00",
+      "sourceIds": [
+        "direct",
+        "iwa"
+      ]
+    },
+    {
+      "id": "T02",
+      "name": "WebSocket to an unchanged SSH port",
+      "family": "Browser platform",
+      "status": "Blocked",
+      "client": "Ordinary tab",
+      "server": "Unchanged",
+      "relay": "Unavailable",
+      "reason": "HTTP negotiation and WebSocket frames do not match an SSH daemon, regardless of port.",
+      "experiment": "E00",
+      "sourceIds": [
+        "ws",
+        "wsWire",
+        "ssh"
+      ]
+    },
+    {
+      "id": "T03",
+      "name": "SSH server with an integrated WSS listener",
+      "family": "Target-native endpoint",
+      "status": "Candidate",
+      "client": "Ordinary tab",
+      "server": "Modified",
+      "relay": "None by design",
+      "reason": "Feed a WebSocket byte stream directly into the server SSH engine; prohibit a second connection to sshd.",
+      "experiment": "E02",
+      "sourceIds": [
+        "goSsh",
+        "goWs"
+      ]
+    },
+    {
+      "id": "T04",
+      "name": "SSH server with integrated WebTransport",
+      "family": "Target-native endpoint",
+      "status": "Candidate",
+      "client": "Ordinary tab",
+      "server": "Modified",
+      "relay": "None by design",
+      "reason": "Requires a compatible target listener and tested browser support; a QUIC socket alone is insufficient.",
+      "experiment": "E05",
+      "sourceIds": [
+        "wt"
+      ]
+    },
+    {
+      "id": "T05",
+      "name": "SSH server with integrated WebRTC peer",
+      "family": "Target-native endpoint",
+      "status": "Candidate",
+      "client": "Ordinary tab",
+      "server": "Modified",
+      "relay": "None if direct ICE",
+      "reason": "Requires target ICE/DTLS/SCTP support; test without TURN and distinguish signaling from session forwarding.",
+      "experiment": "E06",
+      "sourceIds": [
+        "rtc",
+        "stun",
+        "turn"
+      ]
+    },
+    {
+      "id": "T06",
+      "name": "SSH over paired HTTP streams at target",
+      "family": "Target-native endpoint",
+      "status": "Candidate",
+      "client": "Ordinary tab",
+      "server": "Modified",
+      "relay": "None by design",
+      "reason": "A custom endpoint could join upload requests and a response stream; ordering and latency need evaluation.",
+      "experiment": "E07",
+      "sourceIds": [
+        "fetch",
+        "ssh"
+      ]
+    },
+    {
+      "id": "T07",
+      "name": "User-supplied WSS byte tunnel",
+      "family": "Relay compatibility",
+      "status": "Compatibility",
+      "client": "Ordinary tab",
+      "server": "Unchanged",
+      "relay": "Yes",
+      "reason": "SSH stays in the browser while a user-selected service forwards encrypted bytes to the target.",
+      "experiment": "E04",
+      "sourceIds": [
+        "sshterm",
+        "wassh"
+      ]
+    },
+    {
+      "id": "T08",
+      "name": "User-supplied WebTransport tunnel",
+      "family": "Relay compatibility",
+      "status": "Compatibility",
+      "client": "Ordinary tab",
+      "server": "Unchanged",
+      "relay": "Yes",
+      "reason": "A WebTransport endpoint that dials the SSH target is still a relay.",
+      "experiment": "Later",
+      "sourceIds": [
+        "wt"
+      ]
+    },
+    {
+      "id": "T09",
+      "name": "WebRTC-to-TCP bridge or TURN route",
+      "family": "Relay compatibility",
+      "status": "Compatibility",
+      "client": "Ordinary tab",
+      "server": "Unchanged via bridge",
+      "relay": "Yes",
+      "reason": "A TCP bridge forwards SSH; TURN forwards the peer traffic. Neither satisfies the strict goal.",
+      "experiment": "Later",
+      "sourceIds": [
+        "rtc",
+        "turn"
+      ]
+    },
+    {
+      "id": "T10",
+      "name": "WSS wrapper beside sshd on target",
+      "family": "Relay compatibility",
+      "status": "Compatibility",
+      "client": "Ordinary tab",
+      "server": "Unchanged behind wrapper",
+      "relay": "Yes, target-local",
+      "reason": "Same-machine forwarding to port 22, a pipe, or sshd -i still introduces a bridge.",
+      "experiment": "E04",
+      "sourceIds": [
+        "goWs",
+        "sshtermDesign"
+      ]
+    },
+    {
+      "id": "T11",
+      "name": "Localhost TCP companion",
+      "family": "Installed runtime",
+      "status": "Compatibility",
+      "client": "Tab plus helper",
+      "server": "Unchanged",
+      "relay": "Yes, client-local",
+      "reason": "An installed local service supplies TCP through HTTP or WebSocket. Installation and a bridge remain.",
+      "experiment": "Later",
+      "sourceIds": [
+        "native",
+        "ws"
+      ]
+    },
+    {
+      "id": "T12",
+      "name": "Extension plus local TCP connector",
+      "family": "Installed runtime",
+      "status": "Primary path",
+      "client": "Tab plus extension/helper",
+      "server": "Unchanged",
+      "relay": "Yes, client-local",
+      "reason": "Accepted primary path, implemented on Windows/Chromium against local OpenSSH: browser WASM SSH uses approved native-messaging byte streams; TCP leaves the user's device under its normal network routing. This does not pass the helper-free goal.",
+      "experiment": "E10",
+      "sourceIds": [
+        "native",
+        "nativeFirefox"
+      ]
+    },
+    {
+      "id": "T13",
+      "name": "IWA using Direct Sockets",
+      "family": "Installed runtime",
+      "status": "Reference",
+      "client": "Installed browser app",
+      "server": "Unchanged",
+      "relay": "None by design",
+      "reason": "A real raw-TCP reference path; installation, permissions, and platform availability exclude the strict goal.",
+      "experiment": "E03",
+      "sourceIds": [
+        "direct",
+        "iwa",
+        "wassh"
+      ]
+    },
+    {
+      "id": "T14",
+      "name": "Ordinary tab passing bytes through IWA",
+      "family": "Installed runtime",
+      "status": "Compatibility",
+      "client": "Tab plus IWA",
+      "server": "Unchanged",
+      "relay": "Yes, client-local",
+      "reason": "Moving networking to the IWA creates an explicit bridge; do not advertise raw TCP in the tab.",
+      "experiment": "Park",
+      "sourceIds": [
+        "iwa",
+        "iwaPolicy"
+      ]
+    },
+    {
+      "id": "T15",
+      "name": "Custom browser build or privileged flags",
+      "family": "Installed runtime",
+      "status": "Reference",
+      "client": "Modified browser",
+      "server": "Unchanged",
+      "relay": "None by design",
+      "reason": "Can expose sockets in that runtime, but users no longer have ordinary unmodified browsers.",
+      "experiment": "Park",
+      "sourceIds": [
+        "direct",
+        "iwa"
+      ]
+    },
+    {
+      "id": "T16",
+      "name": "Electron, Tauri, or embedded webview app",
+      "family": "Installed runtime",
+      "status": "Compatibility",
+      "client": "Native wrapper",
+      "server": "Unchanged",
+      "relay": "Depends on implementation",
+      "reason": "Native networking can sit inside an application, but this is an installed client rather than a normal tab.",
+      "experiment": "Park",
+      "sourceIds": [
+        "electron"
+      ]
+    },
+    {
+      "id": "T17",
+      "name": "Legacy Chrome Apps or retired plugins",
+      "family": "Installed runtime",
+      "status": "Out of scope",
+      "client": "Legacy privileged runtime",
+      "server": "Unchanged",
+      "relay": "Depends on runtime",
+      "reason": "Historical privileged socket APIs do not supply a supported cross-browser ordinary-tab deployment.",
+      "experiment": "Park",
+      "sourceIds": [
+        "chromeApps"
+      ]
+    },
+    {
+      "id": "T18",
+      "name": "PWA, service worker, COOP/COEP, shared worker",
+      "family": "Computation and packaging",
+      "status": "Blocked",
+      "client": "Ordinary tab or PWA",
+      "server": "Unchanged",
+      "relay": "Unavailable",
+      "reason": "Packaging, isolation, and worker placement do not add an arbitrary TCP primitive.",
+      "experiment": "E00",
+      "sourceIds": [
+        "iwa",
+        "direct"
+      ]
+    },
+    {
+      "id": "T19",
+      "name": "WASM SSH or JavaScript SSH alone",
+      "family": "Computation and packaging",
+      "status": "Blocked",
+      "client": "Ordinary tab",
+      "server": "Unchanged",
+      "relay": "Unavailable without transport",
+      "reason": "A protocol engine solves computation, authentication, and channels; it still needs a network byte stream.",
+      "experiment": "E01",
+      "sourceIds": [
+        "opensshWasm",
+        "goSsh"
+      ]
+    },
+    {
+      "id": "T20",
+      "name": "Emulated Linux or user-space TCP stack",
+      "family": "Computation and packaging",
+      "status": "Blocked",
+      "client": "Ordinary tab",
+      "server": "Unchanged",
+      "relay": "Depends on backend",
+      "reason": "A virtual NIC still requires an external network backend; in-browser-only networking cannot reach remote hosts.",
+      "experiment": "Park",
+      "sourceIds": [
+        "v86"
+      ]
+    },
+    {
+      "id": "T21",
+      "name": "Wisp, VPN, or virtual network gateway",
+      "family": "Relay compatibility",
+      "status": "Compatibility",
+      "client": "Ordinary tab or installed client",
+      "server": "Unchanged",
+      "relay": "Yes, external gateway",
+      "reason": "Encapsulating packets changes the forwarding layer, not the need for a gateway in that architecture.",
+      "experiment": "Park",
+      "sourceIds": [
+        "v86"
+      ]
+    },
+    {
+      "id": "T22",
+      "name": "WebUSB-controlled network hardware",
+      "family": "Hardware transport",
+      "status": "Research",
+      "client": "Tab with hardware API",
+      "server": "Potentially unchanged",
+      "relay": "Depends on device",
+      "reason": "Raw network hardware is a distinct access path, but device permissions, drivers, and browser coverage are unresolved.",
+      "experiment": "Park",
+      "sourceIds": [
+        "usb"
+      ]
+    },
+    {
+      "id": "T23",
+      "name": "Web Serial modem or PPP device",
+      "family": "Hardware transport",
+      "status": "Research",
+      "client": "Tab with hardware API",
+      "server": "Potentially unchanged",
+      "relay": "Depends on device",
+      "reason": "Could expose a physical byte link; requires hardware and a network stack. Serial shell access alone is not SSH.",
+      "experiment": "Park",
+      "sourceIds": [
+        "serial"
+      ]
+    },
+    {
+      "id": "T24",
+      "name": "Bluetooth or HID networking accessory",
+      "family": "Hardware transport",
+      "status": "Research",
+      "client": "Tab with hardware API",
+      "server": "Potentially unchanged",
+      "relay": "Depends on device",
+      "reason": "A custom accessory adds a new dependency; if it forwards to TCP, classify it as a hardware bridge.",
+      "experiment": "Park",
+      "sourceIds": [
+        "bluetooth",
+        "hid"
+      ]
+    },
+    {
+      "id": "T25",
+      "name": "TLS-wrap SSH or move it to port 443",
+      "family": "Protocol mismatch",
+      "status": "Blocked",
+      "client": "Ordinary tab",
+      "server": "Modified port or TLS layer",
+      "relay": "Unavailable without bridge",
+      "reason": "Encryption and a different port do not make SSH an HTTP/WebSocket endpoint.",
+      "experiment": "E00",
+      "sourceIds": [
+        "wsWire",
+        "fetch"
+      ]
+    },
+    {
+      "id": "T26",
+      "name": "Fetch CONNECT, HTTP/2 CONNECT, or MASQUE",
+      "family": "Protocol mismatch",
+      "status": "Blocked",
+      "client": "Ordinary tab",
+      "server": "Unchanged",
+      "relay": "Unavailable or proxy",
+      "reason": "Fetch forbids CONNECT; browser web APIs do not expose a general arbitrary CONNECT tunnel.",
+      "experiment": "E00",
+      "sourceIds": [
+        "fetch",
+        "wt"
+      ]
+    },
+    {
+      "id": "T27",
+      "name": "WebSocketStream or ICE-TCP as raw TCP",
+      "family": "Protocol mismatch",
+      "status": "Blocked",
+      "client": "Where API is available",
+      "server": "Unchanged",
+      "relay": "Unavailable",
+      "reason": "Stream-shaped APIs and TCP under ICE retain their protocol handshakes; they do not expose a generic socket.",
+      "experiment": "E00",
+      "sourceIds": [
+        "ws",
+        "rtc"
+      ]
+    },
+    {
+      "id": "T28",
+      "name": "SSH3 / remote terminals over HTTP/3",
+      "family": "Alternate protocol",
+      "status": "Research",
+      "client": "Needs browser protocol mapping",
+      "server": "Different server protocol",
+      "relay": "None if target-native",
+      "reason": "Interesting alternate terminal design; HTTP/3 usage alone does not imply WebTransport compatibility or SSH-2 interoperability.",
+      "experiment": "Later",
+      "sourceIds": [
+        "ssh3",
+        "wt"
+      ]
+    },
+    {
+      "id": "T29",
+      "name": "Mosh or another terminal protocol",
+      "family": "Alternate protocol",
+      "status": "Out of scope",
+      "client": "Needs additional transport",
+      "server": "Requires server component",
+      "relay": "Depends on transport",
+      "reason": "Mosh bootstraps through SSH and then uses UDP; it does not remove the browser SSH transport problem.",
+      "experiment": "Park",
+      "sourceIds": [
+        "mosh"
+      ]
+    },
+    {
+      "id": "T30",
+      "name": "ssh URI, remote PTY service, or cloud TCP",
+      "family": "Delegated execution",
+      "status": "Compatibility",
+      "client": "Tab UI or native handoff",
+      "server": "Depends on service",
+      "relay": "Yes or SSH runs elsewhere",
+      "reason": "A remote terminal backend or server-side socket API moves execution outside the browser; a URI opens another client.",
+      "experiment": "Park",
+      "sourceIds": [
+        "cloudTcp",
+        "deno",
+        "native"
+      ]
+    },
+    {
+      "id": "T31",
+      "name": "Reverse connection from target",
+      "family": "Browser platform",
+      "status": "Blocked",
+      "client": "Ordinary tab",
+      "server": "Modified target",
+      "relay": "Unavailable without peer or relay",
+      "reason": "Tabs cannot listen for arbitrary inbound TCP; a rendezvous forwarding service is a relay. Direct WebRTC is T05.",
+      "experiment": "Park",
+      "sourceIds": [
+        "rtc",
+        "direct"
+      ]
+    },
+    {
+      "id": "T32",
+      "name": "DNS tunnels, parser tricks, or browser exploits",
+      "family": "Protocol mismatch",
+      "status": "Out of scope",
+      "client": "Version-dependent",
+      "server": "Special endpoint or vulnerability",
+      "relay": "Usually bridge or undefined",
+      "reason": "Covert channels require cooperating endpoints; browser defects cannot support a portable, maintainable compatibility promise.",
+      "experiment": "Park",
+      "sourceIds": [
+        "fetch",
+        "ws"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' ws://127.0.0.1:5173 ws://localhost:5173; worker-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Big SSH — your terminal, in the browser</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="/" aria-label="Big SSH home"><span class="brand-mark">&gt;_</span> BIG SSH</a><span class="topbar-note">A small window into a bigger machine.</span><a class="source-link" href="https://github.com/MetaMysteries8/the-big-ssh-in-the-big-browser" target="_blank" rel="noreferrer">Source ↗</a></header>
+  <main class="workspace">
+    <aside class="sidebar">
+      <div class="sidebar-heading"><span class="eyebrow">CONNECTION</span><span class="version">LOCAL / 0.1</span></div>
+      <h1>Make yourself<br> at home.</h1>
+      <p class="intro">A real SSH session. Your keys.<br> Your own network connection.</p>
+      <form id="connection-form">
+        <label for="host">Host</label><input id="host" name="host" placeholder="Hostname or IP address" autocomplete="off" spellcheck="false" required maxlength="253">
+        <div class="field-row"><div><label for="username">Username</label><input id="username" name="username" placeholder="Your SSH user" autocomplete="username" required></div><div><label for="port">Port</label><input id="port" name="port" type="number" min="1" max="65535" value="22" required></div></div>
+        <label for="auth">Authentication</label><select id="auth"><option value="key">SSH key</option><option value="password">Password</option><option value="keyboard">Interactive / MFA</option><option value="none">No credentials / server onboarding</option></select>
+        <section id="key-auth">
+          <label class="file-picker" for="key-file"><span id="key-label">Choose a private key</span><span>↑</span></label><input id="key-file" type="file" hidden>
+          <label for="passphrase">Key passphrase <span class="optional">optional</span></label><input id="passphrase" type="password" autocomplete="off" placeholder="If your key is encrypted">
+          <div class="key-actions"><button type="button" class="text-button" id="generate-key">Generate Ed25519 key</button><button type="button" class="text-button" id="download-key" hidden>Save key ↓</button></div>
+          <p id="key-status" class="microcopy"></p>
+        </section>
+        <section id="password-auth" hidden><label for="password">Password</label><input id="password" type="password" autocomplete="current-password"></section>
+        <button id="connect" type="submit" class="primary-button"><span>Connect</span><span>↗</span></button>
+        <p class="microcopy">No automatic retries. Credentials stay in this session.</p>
+      </form>
+      <div class="connector-card"><span class="tiny-square"></span><div><strong>Direct from your device</strong><p>Requires the extension + local connector.</p><a href="https://github.com/MetaMysteries8/the-big-ssh-in-the-big-browser/blob/docs/transport-research/docs/DEVELOPMENT.md" target="_blank" rel="noreferrer">One-time setup ↗</a></div></div>
+      <button id="forget-host" type="button" class="text-button forget">Forget saved key for this host</button>
+      <p class="privacy-note">Host fingerprints and connection fields are saved locally. Passwords and private keys are not.</p>
+    </aside>
+    <section class="terminal-area" aria-label="SSH session">
+      <div class="session-bar"><div class="session-name"><span class="status-dot" id="status-dot"></span><span id="session-name">New connection</span></div><div class="session-tools"><span id="session-size">—</span><button type="button" id="disconnect" disabled>Disconnect</button></div></div>
+      <div class="terminal-surface">
+        <div id="welcome"><span class="terminal-symbol">[ ssh ]</span><h2>The internet is full<br>of computers.</h2><p>Pick one. Bring your key. Stay a while.</p><div class="welcome-footer"><span>Your device → SSH server</span><span>NO REMOTE RELAY</span></div></div>
+        <div id="terminal" hidden></div>
+      </div>
+      <footer class="session-footer"><div><span id="connection-state">Starting SSH engine…</span><span id="route-detail"></span></div><span class="engine-tag">SSH-2</span></footer>
+      <div id="error" class="error-banner" role="alert" hidden></div>
+    </section>
+  </main>
+  <dialog id="trust-dialog" aria-labelledby="trust-title"><form method="dialog"><span class="eyebrow">HOST IDENTITY</span><h2 id="trust-title">Trust this server?</h2><p id="trust-target"></p><p class="dialog-detail">Compare this fingerprint with the server owner before trusting it for the first time.</p><code id="trust-fingerprint"></code><div class="dialog-actions"><button value="cancel">Cancel</button><button value="trust" class="primary-button">Trust key &amp; continue</button></div></form></dialog>
+  <dialog id="auth-dialog" aria-labelledby="auth-title"><form id="prompt-form"><span class="eyebrow">SSH AUTHENTICATION</span><h2 id="auth-title">Server challenge</h2><p id="auth-instruction"></p><div id="auth-fields"></div><div class="dialog-actions"><button id="cancel-prompt" type="button">Cancel</button><button type="submit" class="primary-button">Continue</button></div></form></dialog>
+  <script type="module" src="/app.js"></script>
+</body></html>

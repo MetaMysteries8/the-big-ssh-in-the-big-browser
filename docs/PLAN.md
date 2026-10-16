@@ -1,10 +1,14 @@
 # The Big SSH in the Big Browser: engineering plan
 
-Planning status: 2026-10-15. No SSH client or direct-connection proof has been implemented yet.
+Status: 2026-10-15. The Windows/Chromium local-connector prototype now reaches unchanged OpenSSH, with browser-side WASM SSH, host trust, password/key authentication, terminal I/O, resize, and measured source-address behavior. [Reproduction and coverage](DEVELOPMENT.md). Helper-free ordinary-tab direct TCP remains unresolved.
+
+The accepted primary implementation is now a browser tab plus extension and local TCP connector; see [LOCAL-CONNECTOR.md](LOCAL-CONNECTOR.md). It must reach unchanged third-party SSH endpoints without a remote relay or target setup. For the broader survey, read [TRANSPORT-RESEARCH.md](TRANSPORT-RESEARCH.md) and the [32-option catalog](transport-options.json). Helper-free ordinary-tab connectivity remains the separate ultimate research goal.
 
 ## Product contract
 
 Build an open-source SSH terminal whose main interface runs in an ordinary browser tab. Users can choose their own compatibility transports, including relays or an installed Isolated Web App (IWA). These are optional modes, not completion of the ultimate goal.
+
+The user explicitly accepts a one-time extension/local-connector installation as the primary practical path. Provide an explicit relay alternative for users who want no local installation, when a configured relay is available. Preserve the distinction between SSH authentication identity and TCP source IP. No project-operated relay is required or provisioned by this plan.
 
 **Ultimate acceptance test:** an ordinary, unmodified browser tab connects to an unchanged, directly reachable SSH server, with no relay, native helper, installed privileged app, extension, special browser flags, or server-side protocol bridge. Repeat across the supported browser engines. The aspirational target is all browsers; a published versioned test matrix must define what has actually passed.
 
@@ -50,7 +54,7 @@ The IWA reuses the client packages in its own privileged runtime. Moving tab tra
 ### Client components
 
 1. **Terminal UI:** evaluate xterm.js for rendering, keyboard input, resize, Unicode, selection, accessibility, and browser-specific behavior. Keep its renderer replaceable. Bundle assets locally. Treat terminal output, titles, links, and escape-sequence payloads as untrusted. [xterm.js security guidance](https://xtermjs.org/docs/guides/security/)
-2. **SSH engine:** evaluate the existing OpenSSH WASM port first. Pin upstream revisions, publish the build recipe, and track the enabled algorithms and build options. Audit dependence on libapps UI, storage, workers, and syscall handlers before extracting it. Do not assume native OpenSSH feature parity.
+2. **SSH engine:** the first working spike uses Go `x/crypto/ssh` v0.58.0 in a WASM worker. Compare it with the existing OpenSSH WASM port before claiming broad feature coverage. Pin upstream revisions, publish build recipes, and track algorithms and build options. Audit dependence on libapps UI, storage, workers, and syscall handlers before extracting the OpenSSH port. Neither engine choice implies native OpenSSH feature parity.
 3. **Byte transport:** asynchronous readable/writable byte streams, cancellation, bounded queues, backpressure, connection metadata, and truthful capability reporting. Preserve arbitrary chunk boundaries and partial writes. A future direct adapter should not require changes to terminal or authentication code.
 4. **Session coordinator:** explicit connection state machine, host-key verification, authentication prompts, terminal channels, lifecycle events, and reconnect decisions. Each session gets its own engine state.
 5. **Local state:** profile configuration, known-host records, encrypted private-key storage, and recipe configuration. Keep unlocked secrets transient; locking disposes the engine that held them. Do not claim reliable zeroization of JavaScript memory. Public configuration exports exclude secrets by default.
@@ -136,8 +140,8 @@ Browser matrix: test actual Chrome, Firefox, and Safari releases; test Edge and 
 
 ## Milestones and exit criteria
 
-1. **Capability lab:** versioned browser capability report and minimal experiments. Separate proven direct paths, compatibility paths, and unsupported paths. Record the ordinary-tab TCP blocker openly.
-2. **Usable tab client:** local terminal UI, extracted WASM SSH engine, explicit BYO relay adapter, real login against test SSH servers, and browser-side host-key verification. This is an interim compatibility release, not completion of the final challenge.
+1. **Local transport spike:** browser extension/native-host handshake, approved direct TCP access to a controlled unchanged SSH server, correct bytes, teardown, and measured source-address behavior. Record helper and browser/OS requirements.
+2. **Usable tab client:** terminal UI, selected WASM SSH engine, local connector, real login against test SSH servers, and browser-side host-key verification. Add an explicit BYO/deployment-configured relay alternative without source-IP preservation claims.
 3. **Relay-free reference build:** optional signed IWA, real direct SSH login, and traffic evidence. Keep it separate from ordinary-tab claims.
 4. **Setup kit:** profiles, data recipes, validated JavaScript sandbox, lifecycle hooks, safe action retry behavior, configuration import/export, and command palette.
 5. **Compatibility and hardening:** broaden the server/auth/browser matrix, test memory/backpressure and malicious terminal data, audit dependencies, and verify bundled offline behavior.
@@ -166,8 +170,8 @@ docs/                     architecture, limitations, transport protocols
 
 Repository name: `the-big-ssh-in-the-big-browser`. Project-authored code and documentation use the MIT license. Preserve each dependency's own license and notices when introducing third-party code.
 
-Proposed eventual commands: `doctor`, `dev`, `build`, `bundle --recipe`, and `test:interop`, exposed through a documented package script or CLI. They do not exist yet. Setup tools prepare assets and configuration; any optional tool that forwards traffic must declare itself as a relay.
+Implemented commands: `npm run build`, `npm run dev`, `npm run preview`, `npm test`, and `npm run test:e2e`. Proposed later commands include `doctor`, `bundle --recipe`, and a broader interop runner. Setup tools prepare assets and configuration; any optional tool that forwards traffic must declare itself as a relay.
 
 ## First implementation decision
 
-Start with the capability lab plus an OpenSSH WASM extraction spike. Keep the ordinary-tab app as the main product, make compatibility adapters opt-in, and preserve an honest, independently testable direct-mode acceptance test. This delivers useful engineering without claiming that a JavaScript sandbox has capabilities the browser does not expose.
+Start with the accepted extension/local-connector path against unchanged SSH. Keep SSH execution and host-key verification in the browser, and use the connector only for approved raw TCP streams. Compare OpenSSH/WASM and Go/WASM for the browser engine. Provide explicit optional relay mode for users declining installation, with accurate source-IP disclosure. Continue helper-free networking research separately; do not require target-native WSS or server changes.

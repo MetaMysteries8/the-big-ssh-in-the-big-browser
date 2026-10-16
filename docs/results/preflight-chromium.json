@@ -1,0 +1,1009 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-16T01:43:37.224Z",
+  "os": "win32",
+  "nodeVersion": "v24.14.1",
+  "sourceRevision": "3a2664417f16e442c4cd23b0494a035fbfab7da0",
+  "sourceDirty": false,
+  "setup": {
+    "target": "127.0.0.1:2225",
+    "targetPreparationRequired": true,
+    "preparation": "An owned HTTP service primes CORS on the exact URL, then fully stops before a real SSH daemon takes its port.",
+    "relay": false,
+    "extension": false,
+    "nativeConnector": false,
+    "browserSecurityDisabled": false,
+    "liveRailwayAttemptsUsed": 0,
+    "fixtureImage": "sha256:c12f7d67bf43af24b0ae865f26884221838cc8ea8d5ccf783705c8652d387636"
+  },
+  "sequences": [
+    {
+      "daemon": "openssh",
+      "primer": {
+        "first": {
+          "outcome": "response",
+          "type": "cors",
+          "status": 200,
+          "readableBody": true,
+          "text": "PRIMED_HTTP_CONTROL"
+        },
+        "repeat": {
+          "outcome": "response",
+          "type": "cors",
+          "status": 200,
+          "readableBody": true,
+          "text": "PRIMED_HTTP_CONTROL"
+        },
+        "headerRemoval": {
+          "outcome": "response",
+          "type": "cors",
+          "status": 200,
+          "readableBody": true,
+          "text": "PRIMED_HTTP_CONTROL"
+        },
+        "headerRemovalRequests": [
+          {
+            "method": "SSH-2.0-BigSSH_Lab",
+            "path": "/primed",
+            "origin": "http://127.0.0.1:58349",
+            "host": "127.0.0.1:2225",
+            "headerNames": [
+              "host",
+              "connection",
+              "sec-ch-ua-platform",
+              "user-agent",
+              "accept",
+              "sec-ch-ua",
+              "sec-ch-ua-mobile",
+              "origin",
+              "sec-fetch-site",
+              "sec-fetch-mode",
+              "sec-fetch-dest",
+              "referer",
+              "accept-encoding"
+            ]
+          }
+        ],
+        "hostStillPresent": true,
+        "requests": [
+          {
+            "method": "OPTIONS",
+            "path": "/primed",
+            "origin": "http://127.0.0.1:58349",
+            "host": "127.0.0.1:2225",
+            "headerNames": [
+              "host",
+              "connection",
+              "accept",
+              "access-control-request-method",
+              "origin",
+              "user-agent",
+              "sec-fetch-mode",
+              "sec-fetch-site",
+              "sec-fetch-dest",
+              "referer",
+              "accept-encoding"
+            ]
+          },
+          {
+            "method": "SSH-2.0-BigSSH_Lab",
+            "path": "/primed",
+            "origin": "http://127.0.0.1:58349",
+            "host": "127.0.0.1:2225",
+            "headerNames": [
+              "host",
+              "connection",
+              "sec-ch-ua-platform",
+              "user-agent",
+              "sec-ch-ua",
+              "sec-ch-ua-mobile",
+              "accept",
+              "origin",
+              "sec-fetch-site",
+              "sec-fetch-mode",
+              "sec-fetch-dest",
+              "referer",
+              "accept-encoding"
+            ]
+          },
+          {
+            "method": "SSH-2.0-BigSSH_Lab",
+            "path": "/primed",
+            "origin": "http://127.0.0.1:58349",
+            "host": "127.0.0.1:2225",
+            "headerNames": [
+              "host",
+              "connection",
+              "sec-ch-ua-platform",
+              "user-agent",
+              "sec-ch-ua",
+              "sec-ch-ua-mobile",
+              "accept",
+              "origin",
+              "sec-fetch-site",
+              "sec-fetch-mode",
+              "sec-fetch-dest",
+              "referer",
+              "accept-encoding"
+            ]
+          },
+          {
+            "method": "SSH-2.0-BigSSH_Lab",
+            "path": "/primed",
+            "origin": "http://127.0.0.1:58349",
+            "host": "127.0.0.1:2225",
+            "headerNames": [
+              "host",
+              "connection",
+              "sec-ch-ua-platform",
+              "user-agent",
+              "accept",
+              "sec-ch-ua",
+              "sec-ch-ua-mobile",
+              "origin",
+              "sec-fetch-site",
+              "sec-fetch-mode",
+              "sec-fetch-dest",
+              "referer",
+              "accept-encoding"
+            ]
+          }
+        ],
+        "cacheVerified": true
+      },
+      "results": [
+        {
+          "id": "primed-browser-method",
+          "control": false,
+          "result": {
+            "outcome": "rejected",
+            "error": "TypeError: Failed to fetch"
+          },
+          "wire": {
+            "clientSyns": 1,
+            "serverSynAcks": 1,
+            "clientPayloadPackets": 1,
+            "serverPayloadPackets": 2,
+            "udpPackets": 0,
+            "clientFirstUDPPayload": null,
+            "clientFirstPayload": {
+              "hex": "5353482d322e302d4269675353485f4c6162202f7072696d656420485454502f312e310d0a486f73743a203132372e302e302e313a323232350d0a436f6e6e656374696f6e3a206b6565702d616c6976650d0a7365632d63682d75612d706c61",
+              "ascii": "SSH-2.0-BigSSH_Lab /primed HTTP/1.1\r\nHost: 127.0.0.1:2225\r\nConnection: keep-alive\r\nsec-ch-ua-platform: \"Windows\"\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win6"
+            },
+            "serverFirstPayload": {
+              "hex": "5353482d322e302d4f70656e5353485f31302e320d0a",
+              "ascii": "SSH-2.0-OpenSSH_10.2\r\n"
+            },
+            "sshTextSeenInClientPayload": true,
+            "clientFirstPayloadStartsSSH": true
+          },
+          "serverLogs": "debug2: fd 9 setting O_NONBLOCK\r\ndebug1: Forked child 16.\r\ndebug1: Set /proc/self/oom_score_adj to 0\r\ndebug1: rexec start in 8 out 8 newsock 8 config_s 9/10\r\ndebug1: sshd-session version OpenSSH_10.2, OpenSSL 3.5.8 25 Aug 2026\r\ndebug1: network sockets: 7, 7\r\ndebug2: fd 7 setting TCP_NODELAY\r\nConnection from [fixture-address] port 52634 on [fixture-address] port 22 rdomain \"\"\r\ndebug2: server_accept_loop: child 16 for connection from [fixture-address] to [fixture-address] received config\r\ndebug1: Local version string SSH-2.0-OpenSSH_10.2\r\ndebug1: Remote protocol version 2.0, remote software version BigSSH_Lab /primed HTTP/1.1\r\ndebug1: compat_banner: no match: BigSSH_Lab /primed HTTP/1.1\r\ndebug2: fd 7 setting O_NONBLOCK\r\ndebug2: Network child is on pid 17\r\ndebug1: mm_answer_state: config len 80\r\ndebug2: monitor_read: 51 used once, disabling now\r\ndebug1: sshd-auth version OpenSSH_10.2, OpenSSL 3.5.8 25 Aug 2026 [preauth]\r\ndebug1: permanently_set_uid: 22/22 [preauth]\r\ndebug1: list_hostkey_types: rsa-sha2-512,rsa-sha2-256,ecdsa-sha2-nistp256,ssh-ed25519 [preauth]\r\ndebug1: SSH2_MSG_KEXINIT sent [preauth]\r\nBad packet length 1215263604. [preauth]\r\ndebug2: sshpkt_disconnect: sending SSH2_MSG_DISCONNECT: Packet corrupt [preauth]\r\nssh_dispatch_run_fatal: Connection from [fixture-address] port 52634: message authentication code incorrect [preauth]\r\ndebug1: monitor_read_log: child log fd closed\r\ndebug1: mm_reap: child exited with status 255\r\ndebug1: do_cleanup\r\ndebug1: Killing privsep child 17\r\ndebug1: child_close: enter\r\ndebug1: child_reap: preauth child 16 for connection from [fixture-address] to [fixture-address] exited with status 255\r\ndebug1: srclimit_penalise: inactive penalty for ipv4 [fixture-address]/32 already exists, 1 seconds remaining",
+          "consoleErrors": [
+            "Failed to load resource: net::ERR_INVALID_HTTP_RESPONSE"
+          ],
+          "failedRequests": [
+            "net::ERR_INVALID_HTTP_RESPONSE"
+          ]
+        },
+        {
+          "id": "fresh-browser-method",
+          "control": false,
+          "result": {
+            "outcome": "rejected",
+            "error": "TypeError: Failed to fetch"
+          },
+          "wire": {
+            "clientSyns": 1,
+            "serverSynAcks": 1,
+            "clientPayloadPackets": 1,
+            "serverPayloadPackets": 3,
+            "udpPackets": 0,
+            "clientFirstUDPPayload": null,
+            "clientFirstPayload": {
+              "hex": "4f5054494f4e53202f7072696d656420485454502f312e310d0a486f73743a203132372e302e302e313a323232350d0a436f6e6e656374696f6e3a206b6565702d616c6976650d0a4163636570743a202a2f2a0d0a4163636573732d436f6e74",
+              "ascii": "OPTIONS /primed HTTP/1.1\r\nHost: 127.0.0.1:2225\r\nConnection: keep-alive\r\nAccept: */*\r\nAccess-Control-Request-Method: SSH-2.0-BigSSH_Lab\r\nOrigin: http://127.0.0.1"
+            },
+            "serverFirstPayload": {
+              "hex": "5353482d322e302d4f70656e5353485f31302e320d0a",
+              "ascii": "SSH-2.0-OpenSSH_10.2\r\n"
+            },
+            "sshTextSeenInClientPayload": true,
+            "clientFirstPayloadStartsSSH": false
+          },
+          "serverLogs": "debug2: fd 9 setting O_NONBLOCK\r\ndebug1: Forked child 18.\r\ndebug1: Set /proc/self/oom_score_adj to 0\r\ndebug1: rexec start in 8 out 8 newsock 8 config_s 9/10\r\ndebug1: sshd-session version OpenSSH_10.2, OpenSSL 3.5.8 25 Aug 2026\r\ndebug1: network sockets: 7, 7\r\ndebug2: server_accept_loop: child 18 for connection from [fixture-address] to [fixture-address] received config\r\ndebug2: fd 7 setting TCP_NODELAY\r\nConnection from [fixture-address] port 52638 on [fixture-address] port 22 rdomain \"\"\r\ndebug1: Local version string SSH-2.0-OpenSSH_10.2\r\nkex_exchange_identification: client sent invalid protocol identifier \"OPTIONS /primed HTTP/1.1\"\r\nbanner exchange: Connection from [fixture-address] port 52638: invalid format\r\ndebug1: child_close: enter\r\ndebug1: child_reap: preauth child 18 for connection from [fixture-address] to [fixture-address] exited with status 255\r\ndebug1: srclimit_penalise: inactive penalty for ipv4 [fixture-address]/32 already exists, 1 seconds remaining",
+          "consoleErrors": [
+            "Failed to load resource: net::ERR_INVALID_HTTP_RESPONSE"
+          ],
+          "failedRequests": [
+            "net::ERR_INVALID_HTTP_RESPONSE"
+          ]
+        },
+        {
+          "id": "service-worker-preflight-attempt",
+          "control": false,
+          "result": {
+            "outcome": "rejected",
+            "error": "TypeError: Failed to fetch",
+            "serviceWorkerControlled": true,
+            "positiveControl": "LOCAL_SW_CONTROL",
+            "intercepted": [
+              "SSH-2.0-BigSSH_Lab"
+            ]
+          },
+          "wire": {
+            "clientSyns": 1,
+            "serverSynAcks": 1,
+            "clientPayloadPackets": 1,
+            "serverPayloadPackets": 3,
+            "udpPackets": 0,
+            "clientFirstUDPPayload": null,
+            "clientFirstPayload": {
+              "hex": "4f5054494f4e53202f7072696d656420485454502f312e310d0a486f73743a203132372e302e302e313a323232350d0a436f6e6e656374696f6e3a206b6565702d616c6976650d0a4163636570743a202a2f2a0d0a4163636573732d436f6e74",
+              "ascii": "OPTIONS /primed HTTP/1.1\r\nHost: 127.0.0.1:2225\r\nConnection: keep-alive\r\nAccept: */*\r\nAccess-Control-Request-Method: SSH-2.0-BigSSH_Lab\r\nOrigin: http://127.0.0.1"
+            },
+            "serverFirstPayload": {
+              "hex": "5353482d322e302d4f70656e5353485f31302e320d0a",
+              "ascii": "SSH-2.0-OpenSSH_10.2\r\n"
+            },
+            "sshTextSeenInClientPayload": true,
+            "clientFirstPayloadStartsSSH": false
+          },
+          "serverLogs": "debug2: fd 9 setting O_NONBLOCK\r\ndebug1: Forked child 19.\r\ndebug1: Set /proc/self/oom_score_adj to 0\r\ndebug1: rexec start in 8 out 8 newsock 8 config_s 9/10\r\ndebug1: sshd-session version OpenSSH_10.2, OpenSSL 3.5.8 25 Aug 2026\r\ndebug1: network sockets: 7, 7\r\ndebug2: fd 7 setting TCP_NODELAY\r\ndebug2: server_accept_loop: child 19 for connection from [fixture-address] to [fixture-address] received config\r\nConnection from [fixture-address] port 52640 on [fixture-address] port 22 rdomain \"\"\r\ndebug1: Local version string SSH-2.0-OpenSSH_10.2\r\nkex_exchange_identification: client sent invalid protocol identifier \"OPTIONS /primed HTTP/1.1\"\r\nbanner exchange: Connection from [fixture-address] port 52640: invalid format\r\ndebug1: child_close: enter\r\ndebug1: child_reap: preauth child 19 for connection from [fixture-address] to [fixture-address] exited with status 255\r\ndebug1: srclimit_penalise: inactive penalty for ipv4 [fixture-address]/32 already exists, 1 seconds remaining",
+          "consoleErrors": [
+            "Failed to load resource: net::ERR_FAILED"
+          ],
+          "failedRequests": [
+            "net::ERR_FAILED"
+          ]
+        },
+        {
+          "id": "native-identification",
+          "control": true,
+          "result": {
+            "outcome": "kexinit",
+            "bytesReceived": 1062,
+            "banner": "SSH-2.0-OpenSSH_10.2",
+            "messageTypes": [
+              20
+            ],
+            "disconnects": []
+          },
+          "wire": {
+            "clientSyns": 1,
+            "serverSynAcks": 1,
+            "clientPayloadPackets": 1,
+            "serverPayloadPackets": 2,
+            "udpPackets": 0,
+            "clientFirstUDPPayload": null,
+            "clientFirstPayload": {
+              "hex": "5353482d322e302d4269675353485f436f6e74726f6c0d0a",
+              "ascii": "SSH-2.0-BigSSH_Control\r\n"
+            },
+            "serverFirstPayload": {
+              "hex": "5353482d322e302d4f70656e5353485f31302e320d0a",
+              "ascii": "SSH-2.0-OpenSSH_10.2\r\n"
+            },
+            "sshTextSeenInClientPayload": true,
+            "clientFirstPayloadStartsSSH": true
+          },
+          "serverLogs": "debug2: fd 9 setting O_NONBLOCK\r\ndebug1: Forked child 20.\r\ndebug1: Set /proc/self/oom_score_adj to 0\r\ndebug1: rexec start in 8 out 8 newsock 8 config_s 9/10\r\ndebug1: sshd-session version OpenSSH_10.2, OpenSSL 3.5.8 25 Aug 2026\r\ndebug1: network sockets: 7, 7\r\ndebug2: server_accept_loop: child 20 for connection from [fixture-address] to [fixture-address] received config\r\ndebug2: fd 7 setting TCP_NODELAY\r\nConnection from [fixture-address] port 43700 on [fixture-address] port 22 rdomain \"\"\r\ndebug1: Local version string SSH-2.0-OpenSSH_10.2\r\ndebug1: Remote protocol version 2.0, remote software version BigSSH_Control\r\ndebug1: compat_banner: no match: BigSSH_Control\r\ndebug2: fd 7 setting O_NONBLOCK\r\ndebug2: Network child is on pid 21\r\ndebug1: mm_answer_state: config len 80\r\ndebug2: monitor_read: 51 used once, disabling now\r\ndebug1: sshd-auth version OpenSSH_10.2, OpenSSL 3.5.8 25 Aug 2026 [preauth]\r\ndebug1: permanently_set_uid: 22/22 [preauth]\r\ndebug1: list_hostkey_types: rsa-sha2-512,rsa-sha2-256,ecdsa-sha2-nistp256,ssh-ed25519 [preauth]\r\ndebug1: SSH2_MSG_KEXINIT sent [preauth]\r\nConnection closed by [fixture-address] port 43700 [preauth]\r\ndebug1: monitor_read_log: child log fd closed\r\ndebug1: mm_reap: child exited with status 255\r\ndebug1: do_cleanup\r\ndebug1: Killing privsep child 21\r\ndebug1: child_close: enter\r\ndebug1: child_reap: preauth child 20 for connection from [fixture-address] to [fixture-address] exited with status 255\r\ndebug1: srclimit_penalise: inactive penalty for ipv4 [fixture-address]/32 already exists, 1 seconds remaining",
+          "consoleErrors": [],
+          "failedRequests": []
+        },
+        {
+          "id": "native-full-handshake",
+          "control": true,
+          "result": {
+            "authenticated": false,
+            "authenticationReached": true,
+            "error": "ssh: handshake failed: ssh: unable to authenticate, attempted methods [none], no supported methods remain",
+            "fingerprint": "SHA256:xpV6/Cg75dwxXZfNvfSUEEn4NPxVkugiModg6zFQyA0",
+            "hostKeySeen": true,
+            "outcome": "authentication-reached"
+          },
+          "wire": {
+            "clientSyns": 1,
+            "serverSynAcks": 1,
+            "clientPayloadPackets": 6,
+            "serverPayloadPackets": 5,
+            "udpPackets": 0,
+            "clientFirstUDPPayload": null,
+            "clientFirstPayload": {
+              "hex": "5353482d322e302d4269675353485f436f6e74726f6c0d0a",
+              "ascii": "SSH-2.0-BigSSH_Control\r\n"
+            },
+            "serverFirstPayload": {
+              "hex": "5353482d322e302d4f70656e5353485f31302e320d0a",
+              "ascii": "SSH-2.0-OpenSSH_10.2\r\n"
+            },
+            "sshTextSeenInClientPayload": true,
+            "clientFirstPayloadStartsSSH": true
+          },
+          "serverLogs": "debug2: fd 9 setting O_NONBLOCK\r\ndebug1: Forked child 22.\r\ndebug1: Set /proc/self/oom_score_adj to 0\r\ndebug1: rexec start in 8 out 8 newsock 8 config_s 9/10\r\ndebug1: sshd-session version OpenSSH_10.2, OpenSSL 3.5.8 25 Aug 2026\r\ndebug1: network sockets: 7, 7\r\ndebug2: server_accept_loop: child 22 for connection from [fixture-address] to [fixture-address] received config\r\ndebug2: fd 7 setting TCP_NODELAY\r\nConnection from [fixture-address] port 43706 on [fixture-address] port 22 rdomain \"\"\r\ndebug1: Local version string SSH-2.0-OpenSSH_10.2\r\ndebug1: Remote protocol version 2.0, remote software version BigSSH_Control\r\ndebug1: compat_banner: no match: BigSSH_Control\r\ndebug2: fd 7 setting O_NONBLOCK\r\ndebug2: Network child is on pid 23\r\ndebug1: mm_answer_state: config len 80\r\ndebug2: monitor_read: 51 used once, disabling now\r\ndebug1: sshd-auth version OpenSSH_10.2, OpenSSL 3.5.8 25 Aug 2026 [preauth]\r\ndebug1: permanently_set_uid: 22/22 [preauth]\r\ndebug1: list_hostkey_types: rsa-sha2-512,rsa-sha2-256,ecdsa-sha2-nistp256,ssh-ed25519 [preauth]\r\ndebug1: SSH2_MSG_KEXINIT sent [preauth]\r\ndebug1: SSH2_MSG_KEXINIT received [preauth]\r\ndebug2: local server KEXINIT proposal [preauth]\r\ndebug2: KEX algorithms: mlkem768x25519-sha256,sntrup761x25519-sha512,sntrup761x25519-sha512@openssh.com,curve25519-sha256,curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,ext-info-s,kex-strict-s-v00@openssh.com [preauth]\r\ndebug2: host key algorithms: rsa-sha2-512,rsa-sha2-256,ecdsa-sha2-nistp256,ssh-ed25519 [preauth]\r\ndebug2: ciphers ctos: chacha20-poly1305@openssh.com,aes128-gcm@openssh.com,aes256-gcm@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr [preauth]\r\ndebug2: ciphers stoc: chacha20-poly1305@openssh.com,aes128-gcm@openssh.com,aes256-gcm@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr [preauth]\r\ndebug2: MACs ctos: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1 [preauth]\r\ndebug2: MACs stoc: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1 [preauth]\r\ndebug2: compression ctos: none,zlib@openssh.com [preauth]\r\ndebug2: compression stoc: none,zlib@openssh.com [preauth]\r\ndebug2: languages ctos:  [preauth]\r\ndebug2: languages stoc:  [preauth]\r\ndebug2: first_kex_follows 0  [preauth]\r\ndebug2: reserved 0  [preauth]\r\ndebug2: peer client KEXINIT proposal [preauth]\r\ndebug2: KEX algorithms: mlkem768x25519-sha256,curve25519-sha256,curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha256,diffie-hellman-group14-sha1,ext-info-c,kex-strict-c-v00@openssh.com [preauth]\r\ndebug2: host key algorithms: rsa-sha2-256-cert-v01@openssh.com,rsa-sha2-512-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-dss-cert-v01@openssh.com,ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com,ssh-ed25519-cert-v01@openssh.com,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,rsa-sha2-256,rsa-sha2-512,ssh-rsa,ssh-dss,ssh-ed25519 [preauth]\r\ndebug2: ciphers ctos: aes128-gcm@openssh.com,aes256-gcm@openssh.com,chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr [preauth]\r\ndebug2: ciphers stoc: aes128-gcm@openssh.com,aes256-gcm@openssh.com,chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr [preauth]\r\ndebug2: MACs ctos: hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1,hmac-sha1-96 [preauth]\r\ndebug2: MACs stoc: hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1,hmac-sha1-96 [preauth]\r\ndebug2: compression ctos: none [preauth]\r\ndebug2: compression stoc: none [preauth]\r\ndebug2: languages ctos:  [preauth]\r\ndebug2: languages stoc:  [preauth]\r\ndebug2: first_kex_follows 0  [preauth]\r\ndebug2: reserved 0  [preauth]\r\ndebug1: kex: algorithm: mlkem768x25519-sha256 [preauth]\r\ndebug1: kex: host key algorithm: ecdsa-sha2-nistp256 [preauth]\r\ndebug1: kex: client->server cipher: aes128-gcm@openssh.com MAC: <implicit> compression: none [preauth]\r\ndebug1: kex: server->client cipher: aes128-gcm@openssh.com MAC: <implicit> compression: none [preauth]\r\ndebug1: expecting SSH2_MSG_KEX_ECDH_INIT [preauth]\r\ndebug1: S",
+          "consoleErrors": [],
+          "failedRequests": []
+        },
+        {
+          "id": "native-exact-first-line",
+          "control": true,
+          "result": {
+            "outcome": "kexinit",
+            "bytesReceived": 1062,
+            "banner": "SSH-2.0-OpenSSH_10.2",
+            "messageTypes": [
+              20
+            ],
+            "disconnects": []
+          },
+          "wire": {
+            "clientSyns": 1,
+            "serverSynAcks": 1,
+            "clientPayloadPackets": 1,
+            "serverPayloadPackets": 2,
+            "udpPackets": 0,
+            "clientFirstUDPPayload": null,
+            "clientFirstPayload": {
+              "hex": "5353482d322e302d4269675353485f4c6162202f7072696d656420485454502f312e310d0a",
+              "ascii": "SSH-2.0-BigSSH_Lab /primed HTTP/1.1\r\n"
+            },
+            "serverFirstPayload": {
+              "hex": "5353482d322e302d4f70656e5353485f31302e320d0a",
+              "ascii": "SSH-2.0-OpenSSH_10.2\r\n"
+            },
+            "sshTextSeenInClientPayload": true,
+            "clientFirstPayloadStartsSSH": true
+          },
+          "serverLogs": "debug2: fd 9 setting O_NONBLOCK\r\ndebug1: Forked child 24.\r\ndebug1: Set /proc/self/oom_score_adj to 0\r\ndebug1: rexec start in 8 out 8 newsock 8 config_s 9/10\r\ndebug1: sshd-session version OpenSSH_10.2, OpenSSL 3.5.8 25 Aug 2026\r\ndebug1: network sockets: 7, 7\r\ndebug2: server_accept_loop: child 24 for connection from [fixture-address] to [fixture-address] received config\r\ndebug2: fd 7 setting TCP_NODELAY\r\nConnection from [fixture-address] port 43712 on [fixture-address] port 22 rdomain \"\"\r\ndebug1: Local version string SSH-2.0-OpenSSH_10.2\r\ndebug1: Remote protocol version 2.0, remote software version BigSSH_Lab /primed HTTP/1.1\r\ndebug1: compat_banner: no match: BigSSH_Lab /primed HTTP/1.1\r\ndebug2: fd 7 setting O_NONBLOCK\r\ndebug2: Network child is on pid 25\r\ndebug1: mm_answer_state: config len 80\r\ndebug2: monitor_read: 51 used once, disabling now\r\ndebug1: sshd-auth version OpenSSH_10.2, OpenSSL 3.5.8 25 Aug 2026 [preauth]\r\ndebug1: permanently_set_uid: 22/22 [preauth]\r\ndebug1: list_hostkey_types: rsa-sha2-512,rsa-sha2-256,ecdsa-sha2-nistp256,ssh-ed25519 [preauth]\r\ndebug1: SSH2_MSG_KEXINIT sent [preauth]\r\nConnection closed by [fixture-address] port 43712 [preauth]\r\ndebug1: monitor_read_log: child log fd closed\r\ndebug1: mm_reap: child exited with status 255\r\ndebug1: do_cleanup\r\ndebug1: Killing privsep child 25\r\ndebug1: child_close: enter\r\ndebug1: child_reap: preauth child 24 for connection from [fixture-address] to [fixture-address] exited with status 255\r\ndebug1: srclimit_penalise: inactive penalty for ipv4 [fixture-address]/32 already exists, 1 seconds remaining",
+          "consoleErrors": [],
+          "failedRequests": []
+        },
+        {
+          "id": "native-full-handshake-exact-line",
+          "control": true,
+          "result": {
+            "authenticated": false,
+            "authenticationReached": true,
+            "error": "ssh: handshake failed: ssh: unable to authenticate, attempted methods [none], no supported methods remain",
+            "fingerprint": "SHA256:xpV6/Cg75dwxXZfNvfSUEEn4NPxVkugiModg6zFQyA0",
+            "hostKeySeen": true,
+            "outcome": "authentication-reached"
+          },
+          "wire": {
+            "clientSyns": 1,
+            "serverSynAcks": 1,
+            "clientPayloadPackets": 6,
+            "serverPayloadPackets": 5,
+            "udpPackets": 0,
+            "clientFirstUDPPayload": null,
+            "clientFirstPayload": {
+              "hex": "5353482d322e302d4269675353485f4c6162202f7072696d656420485454502f312e310d0a",
+              "ascii": "SSH-2.0-BigSSH_Lab /primed HTTP/1.1\r\n"
+            },
+            "serverFirstPayload": {
+              "hex": "5353482d322e302d4f70656e5353485f31302e320d0a",
+              "ascii": "SSH-2.0-OpenSSH_10.2\r\n"
+            },
+            "sshTextSeenInClientPayload": true,
+            "clientFirstPayloadStartsSSH": true
+          },
+          "serverLogs": "debug2: fd 9 setting O_NONBLOCK\r\ndebug1: Forked child 26.\r\ndebug1: Set /proc/self/oom_score_adj to 0\r\ndebug1: rexec start in 8 out 8 newsock 8 config_s 9/10\r\ndebug1: sshd-session version OpenSSH_10.2, OpenSSL 3.5.8 25 Aug 2026\r\ndebug1: network sockets: 7, 7\r\ndebug2: server_accept_loop: child 26 for connection from [fixture-address] to [fixture-address] received config\r\ndebug2: fd 7 setting TCP_NODELAY\r\nConnection from [fixture-address] port 43714 on [fixture-address] port 22 rdomain \"\"\r\ndebug1: Local version string SSH-2.0-OpenSSH_10.2\r\ndebug1: Remote protocol version 2.0, remote software version BigSSH_Lab /primed HTTP/1.1\r\ndebug1: compat_banner: no match: BigSSH_Lab /primed HTTP/1.1\r\ndebug2: fd 7 setting O_NONBLOCK\r\ndebug2: Network child is on pid 27\r\ndebug1: mm_answer_state: config len 80\r\ndebug2: monitor_read: 51 used once, disabling now\r\ndebug1: sshd-auth version OpenSSH_10.2, OpenSSL 3.5.8 25 Aug 2026 [preauth]\r\ndebug1: permanently_set_uid: 22/22 [preauth]\r\ndebug1: list_hostkey_types: rsa-sha2-512,rsa-sha2-256,ecdsa-sha2-nistp256,ssh-ed25519 [preauth]\r\ndebug1: SSH2_MSG_KEXINIT sent [preauth]\r\ndebug1: SSH2_MSG_KEXINIT received [preauth]\r\ndebug2: local server KEXINIT proposal [preauth]\r\ndebug2: KEX algorithms: mlkem768x25519-sha256,sntrup761x25519-sha512,sntrup761x25519-sha512@openssh.com,curve25519-sha256,curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,ext-info-s,kex-strict-s-v00@openssh.com [preauth]\r\ndebug2: host key algorithms: rsa-sha2-512,rsa-sha2-256,ecdsa-sha2-nistp256,ssh-ed25519 [preauth]\r\ndebug2: ciphers ctos: chacha20-poly1305@openssh.com,aes128-gcm@openssh.com,aes256-gcm@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr [preauth]\r\ndebug2: ciphers stoc: chacha20-poly1305@openssh.com,aes128-gcm@openssh.com,aes256-gcm@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr [preauth]\r\ndebug2: MACs ctos: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1 [preauth]\r\ndebug2: MACs stoc: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1 [preauth]\r\ndebug2: compression ctos: none,zlib@openssh.com [preauth]\r\ndebug2: compression stoc: none,zlib@openssh.com [preauth]\r\ndebug2: languages ctos:  [preauth]\r\ndebug2: languages stoc:  [preauth]\r\ndebug2: first_kex_follows 0  [preauth]\r\ndebug2: reserved 0  [preauth]\r\ndebug2: peer client KEXINIT proposal [preauth]\r\ndebug2: KEX algorithms: mlkem768x25519-sha256,curve25519-sha256,curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha256,diffie-hellman-group14-sha1,ext-info-c,kex-strict-c-v00@openssh.com [preauth]\r\ndebug2: host key algorithms: rsa-sha2-256-cert-v01@openssh.com,rsa-sha2-512-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-dss-cert-v01@openssh.com,ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com,ssh-ed25519-cert-v01@openssh.com,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,rsa-sha2-256,rsa-sha2-512,ssh-rsa,ssh-dss,ssh-ed25519 [preauth]\r\ndebug2: ciphers ctos: aes128-gcm@openssh.com,aes256-gcm@openssh.com,chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr [preauth]\r\ndebug2: ciphers stoc: aes128-gcm@openssh.com,aes256-gcm@openssh.com,chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr [preauth]\r\ndebug2: MACs ctos: hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1,hmac-sha1-96 [preauth]\r\ndebug2: MACs stoc: hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1,hmac-sha1-96 [preauth]\r\ndebug2: compression ctos: none [preauth]\r\ndebug2: compression stoc: none [preauth]\r\ndebug2: languages ctos:  [preauth]\r\ndebug2: languages stoc:  [preauth]\r\ndebug2: first_kex_follows 0  [preauth]\r\ndebug2: reserved 0  [preauth]\r\ndebug1: kex: algorithm: mlkem768x25519-sha256 [preauth]\r\ndebug1: kex: host key algorithm: ecdsa-sha2-nistp256 [preauth]\r\ndebug1: kex: client->server cipher: aes128-gcm@openssh.com MAC: <implicit> compression: none [preauth]\r\ndebug1: kex: server->client cipher: aes128-gcm@openssh.com MAC: <implicit> compression: none [preauth]\r\ndebug1: expecting SSH2_MSG_KEX_ECDH",
+          "consoleErrors": [],
+          "failedRequests": []
+        },
+        {
+          "id": "native-exact-http-replay",
+          "control": true,
+          "result": {
+            "outcome": "closed",
+            "bytesReceived": 1062,
+            "banner": "SSH-2.0-OpenSSH_10.2",
+            "messageTypes": [
+              20
+            ],
+            "disconnects": []
+          },
+          "wire": {
+            "clientSyns": 1,
+            "serverSynAcks": 1,
+            "clientPayloadPackets": 1,
+            "serverPayloadPackets": 2,
+            "udpPackets": 0,
+            "clientFirstUDPPayload": null,
+            "clientFirstPayload": {
+              "hex": "5353482d322e302d4269675353485f4c6162202f7072696d656420485454502f312e310d0a486f73743a203132372e302e302e313a323232350d0a436f6e6e656374696f6e3a206b6565702d616c6976650d0a7365632d63682d75612d706c61",
+              "ascii": "SSH-2.0-BigSSH_Lab /primed HTTP/1.1\r\nHost: 127.0.0.1:2225\r\nConnection: keep-alive\r\nsec-ch-ua-platform: \"Windows\"\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win6"
+            },
+            "serverFirstPayload": {
+              "hex": "5353482d322e302d4f70656e5353485f31302e320d0a",
+              "ascii": "SSH-2.0-OpenSSH_10.2\r\n"
+            },
+            "sshTextSeenInClientPayload": true,
+            "clientFirstPayloadStartsSSH": true
+          },
+          "serverLogs": "debug2: fd 9 setting O_NONBLOCK\r\ndebug1: Forked child 28.\r\ndebug1: Set /proc/self/oom_score_adj to 0\r\ndebug1: rexec start in 8 out 8 newsock 8 config_s 9/10\r\ndebug1: sshd-session version OpenSSH_10.2, OpenSSL 3.5.8 25 Aug 2026\r\ndebug1: network sockets: 7, 7\r\ndebug2: server_accept_loop: child 28 for connection from [fixture-address] to [fixture-address] received config\r\ndebug2: fd 7 setting TCP_NODELAY\r\nConnection from [fixture-address] port 43726 on [fixture-address] port 22 rdomain \"\"\r\ndebug1: Local version string SSH-2.0-OpenSSH_10.2\r\ndebug1: Remote protocol version 2.0, remote software version BigSSH_Lab /primed HTTP/1.1\r\ndebug1: compat_banner: no match: BigSSH_Lab /primed HTTP/1.1\r\ndebug2: fd 7 setting O_NONBLOCK\r\ndebug2: Network child is on pid 29\r\ndebug1: mm_answer_state: config len 80\r\ndebug2: monitor_read: 51 used once, disabling now\r\ndebug1: sshd-auth version OpenSSH_10.2, OpenSSL 3.5.8 25 Aug 2026 [preauth]\r\ndebug1: permanently_set_uid: 22/22 [preauth]\r\ndebug1: list_hostkey_types: rsa-sha2-512,rsa-sha2-256,ecdsa-sha2-nistp256,ssh-ed25519 [preauth]\r\ndebug1: SSH2_MSG_KEXINIT sent [preauth]\r\nBad packet length 1215263604. [preauth]\r\ndebug2: sshpkt_disconnect: sending SSH2_MSG_DISCONNECT: Packet corrupt [preauth]\r\nssh_dispatch_run_fatal: Connection from [fixture-address] port 43726: message authentication code incorrect [preauth]\r\ndebug1: monitor_read_log: child log fd closed\r\ndebug1: mm_reap: child exited with status 255\r\ndebug1: do_cleanup\r\ndebug1: Killing privsep child 29\r\ndebug1: child_close: enter\r\ndebug1: child_reap: preauth child 28 for connection from [fixture-address] to [fixture-address] exited with status 255\r\ndebug1: srclimit_penalise: inactive penalty for ipv4 [fixture-address]/32 already exists, 2 seconds remaining",
+          "consoleErrors": [],
+          "failedRequests": []
+        },
+        {
+          "id": "native-http-prefix",
+          "control": true,
+          "result": {
+            "outcome": "closed",
+            "bytesReceived": 58,
+            "banner": "SSH-2.0-OpenSSH_10.2",
+            "messageTypes": [],
+            "disconnects": []
+          },
+          "wire": {
+            "clientSyns": 1,
+            "serverSynAcks": 1,
+            "clientPayloadPackets": 1,
+            "serverPayloadPackets": 3,
+            "udpPackets": 0,
+            "clientFirstUDPPayload": null,
+            "clientFirstPayload": {
+              "hex": "474554202f20485454502f312e310d0a0d0a5353482d322e302d4269675353485f436f6e74726f6c0d0a",
+              "ascii": "GET / HTTP/1.1\r\n\r\nSSH-2.0-BigSSH_Control\r\n"
+            },
+            "serverFirstPayload": {
+              "hex": "5353482d322e302d4f70656e5353485f31302e320d0a",
+              "ascii": "SSH-2.0-OpenSSH_10.2\r\n"
+            },
+            "sshTextSeenInClientPayload": true,
+            "clientFirstPayloadStartsSSH": false
+          },
+          "serverLogs": "debug2: fd 9 setting O_NONBLOCK\r\ndebug1: Forked child 30.\r\ndebug1: Set /proc/self/oom_score_adj to 0\r\ndebug1: rexec start in 8 out 8 newsock 8 config_s 9/10\r\ndebug1: sshd-session version OpenSSH_10.2, OpenSSL 3.5.8 25 Aug 2026\r\ndebug1: network sockets: 7, 7\r\ndebug2: server_accept_loop: child 30 for connection from [fixture-address] to [fixture-address] received config\r\ndebug2: fd 7 setting TCP_NODELAY\r\nConnection from [fixture-address] port 43736 on [fixture-address] port 22 rdomain \"\"\r\ndebug1: Local version string SSH-2.0-OpenSSH_10.2\r\nkex_exchange_identification: client sent invalid protocol identifier \"GET / HTTP/1.1\"\r\nbanner exchange: Connection from [fixture-address] port 43736: invalid format\r\ndebug1: child_close: enter\r\ndebug1: child_reap: preauth child 30 for connection from [fixture-address] to [fixture-address] exited with status 255\r\ndebug1: srclimit_penalise: inactive penalty for ipv4 [fixture-address]/32 already exists, 3 seconds remaining",
+          "consoleErrors": [],
+          "failedRequests": []
+        },
+        {
+          "id": "native-stun-prefix",
+          "control": true,
+          "result": {
+            "outcome": "closed",
+            "bytesReceived": 58,
+            "banner": "SSH-2.0-OpenSSH_10.2",
+            "messageTypes": [],
+            "disconnects": []
+          },
+          "wire": {
+            "clientSyns": 1,
+            "serverSynAcks": 1,
+            "clientPayloadPackets": 1,
+            "serverPayloadPackets": 3,
+            "udpPackets": 0,
+            "clientFirstUDPPayload": null,
+            "clientFirstPayload": {
+              "hex": "0014000100002112a4420101010101010101010101010d0a5353482d322e302d4269675353485f436f6e74726f6c0d0a",
+              "ascii": "......!..B............\r\nSSH-2.0-BigSSH_Control\r\n"
+            },
+            "serverFirstPayload": {
+              "hex": "5353482d322e302d4f70656e5353485f31302e320d0a",
+              "ascii": "SSH-2.0-OpenSSH_10.2\r\n"
+            },
+            "sshTextSeenInClientPayload": true,
+            "clientFirstPayloadStartsSSH": false
+          },
+          "serverLogs": "debug2: fd 9 setting O_NONBLOCK\r\ndebug1: Forked child 31.\r\ndebug1: Set /proc/self/oom_score_adj to 0\r\ndebug1: rexec start in 8 out 8 newsock 8 config_s 9/10\r\ndebug1: sshd-session version OpenSSH_10.2, OpenSSL 3.5.8 25 Aug 2026\r\ndebug1: network sockets: 7, 7\r\ndebug2: server_accept_loop: child 31 for connection from [fixture-address] to [fixture-address] received config\r\ndebug2: fd 7 setting TCP_NODELAY\r\nConnection from [fixture-address] port 43738 on [fixture-address] port 22 rdomain \"\"\r\ndebug1: Local version string SSH-2.0-OpenSSH_10.2\r\nkex_exchange_identification: banner line contains invalid characters\r\nbanner exchange: Connection from [fixture-address] port 43738: invalid format\r\ndebug1: child_close: enter\r\ndebug1: child_reap: preauth child 31 for connection from [fixture-address] to [fixture-address] exited with status 255\r\ndebug1: srclimit_penalise: inactive penalty for ipv4 [fixture-address]/32 already exists, 3 seconds remaining",
+          "consoleErrors": [],
+          "failedRequests": []
+        }
+      ],
+      "server": {
+        "outcome": "kexinit",
+        "bytesReceived": 1062,
+        "banner": "SSH-2.0-OpenSSH_10.2",
+        "messageTypes": [
+          20
+        ],
+        "disconnects": []
+      },
+      "primedFirstLineStartsSSH": true,
+      "summary": {
+        "cacheVerified": true,
+        "sshLookingFirstLine": true,
+        "browserReadServerData": false,
+        "fullSSHSessionAttempted": false
+      }
+    },
+    {
+      "daemon": "dropbear",
+      "primer": {
+        "first": {
+          "outcome": "response",
+          "type": "cors",
+          "status": 200,
+          "readableBody": true,
+          "text": "PRIMED_HTTP_CONTROL"
+        },
+        "repeat": {
+          "outcome": "response",
+          "type": "cors",
+          "status": 200,
+          "readableBody": true,
+          "text": "PRIMED_HTTP_CONTROL"
+        },
+        "headerRemoval": {
+          "outcome": "response",
+          "type": "cors",
+          "status": 200,
+          "readableBody": true,
+          "text": "PRIMED_HTTP_CONTROL"
+        },
+        "headerRemovalRequests": [
+          {
+            "method": "SSH-2.0-BigSSH_Lab",
+            "path": "/primed",
+            "origin": "http://127.0.0.1:58349",
+            "host": "127.0.0.1:2225",
+            "headerNames": [
+              "host",
+              "connection",
+              "sec-ch-ua-platform",
+              "user-agent",
+              "accept",
+              "sec-ch-ua",
+              "sec-ch-ua-mobile",
+              "origin",
+              "sec-fetch-site",
+              "sec-fetch-mode",
+              "sec-fetch-dest",
+              "referer",
+              "accept-encoding"
+            ]
+          }
+        ],
+        "hostStillPresent": true,
+        "requests": [
+          {
+            "method": "OPTIONS",
+            "path": "/primed",
+            "origin": "http://127.0.0.1:58349",
+            "host": "127.0.0.1:2225",
+            "headerNames": [
+              "host",
+              "connection",
+              "accept",
+              "access-control-request-method",
+              "origin",
+              "user-agent",
+              "sec-fetch-mode",
+              "sec-fetch-site",
+              "sec-fetch-dest",
+              "referer",
+              "accept-encoding"
+            ]
+          },
+          {
+            "method": "SSH-2.0-BigSSH_Lab",
+            "path": "/primed",
+            "origin": "http://127.0.0.1:58349",
+            "host": "127.0.0.1:2225",
+            "headerNames": [
+              "host",
+              "connection",
+              "sec-ch-ua-platform",
+              "user-agent",
+              "sec-ch-ua",
+              "sec-ch-ua-mobile",
+              "accept",
+              "origin",
+              "sec-fetch-site",
+              "sec-fetch-mode",
+              "sec-fetch-dest",
+              "referer",
+              "accept-encoding"
+            ]
+          },
+          {
+            "method": "SSH-2.0-BigSSH_Lab",
+            "path": "/primed",
+            "origin": "http://127.0.0.1:58349",
+            "host": "127.0.0.1:2225",
+            "headerNames": [
+              "host",
+              "connection",
+              "sec-ch-ua-platform",
+              "user-agent",
+              "sec-ch-ua",
+              "sec-ch-ua-mobile",
+              "accept",
+              "origin",
+              "sec-fetch-site",
+              "sec-fetch-mode",
+              "sec-fetch-dest",
+              "referer",
+              "accept-encoding"
+            ]
+          },
+          {
+            "method": "SSH-2.0-BigSSH_Lab",
+            "path": "/primed",
+            "origin": "http://127.0.0.1:58349",
+            "host": "127.0.0.1:2225",
+            "headerNames": [
+              "host",
+              "connection",
+              "sec-ch-ua-platform",
+              "user-agent",
+              "accept",
+              "sec-ch-ua",
+              "sec-ch-ua-mobile",
+              "origin",
+              "sec-fetch-site",
+              "sec-fetch-mode",
+              "sec-fetch-dest",
+              "referer",
+              "accept-encoding"
+            ]
+          }
+        ],
+        "cacheVerified": true
+      },
+      "results": [
+        {
+          "id": "primed-browser-method",
+          "control": false,
+          "result": {
+            "outcome": "rejected",
+            "error": "TypeError: Failed to fetch"
+          },
+          "wire": {
+            "clientSyns": 1,
+            "serverSynAcks": 1,
+            "clientPayloadPackets": 1,
+            "serverPayloadPackets": 1,
+            "udpPackets": 0,
+            "clientFirstUDPPayload": null,
+            "clientFirstPayload": {
+              "hex": "5353482d322e302d4269675353485f4c6162202f7072696d656420485454502f312e310d0a486f73743a203132372e302e302e313a323232350d0a436f6e6e656374696f6e3a206b6565702d616c6976650d0a7365632d63682d75612d706c61",
+              "ascii": "SSH-2.0-BigSSH_Lab /primed HTTP/1.1\r\nHost: 127.0.0.1:2225\r\nConnection: keep-alive\r\nsec-ch-ua-platform: \"Windows\"\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win6"
+            },
+            "serverFirstPayload": {
+              "hex": "5353482d322e302d64726f70626561725f323032352e38380d0a0000021c0714c4da9eb73ca8d7eed24d6367e3f005820000010c736e747275703736317832353531392d7368613531322c736e747275703736317832353531392d7368613531",
+              "ascii": "SSH-2.0-dropbear_2025.88\r\n..........<....Mcg........sntrup761x25519-sha512,sntrup761x25519-sha512@openssh.com,mlkem768x25519-sha256,curve25519-sha256,curve25519"
+            },
+            "sshTextSeenInClientPayload": true,
+            "clientFirstPayloadStartsSSH": true
+          },
+          "serverLogs": "[14] Oct 16 01:43:52 Child connection from [fixture-address]:43760\n[14] Oct 16 01:43:52 Exit before auth from <[fixture-address]:43760>: Integrity error (bad packet size 1215263608)",
+          "consoleErrors": [
+            "Failed to load resource: net::ERR_INVALID_HTTP_RESPONSE"
+          ],
+          "failedRequests": [
+            "net::ERR_INVALID_HTTP_RESPONSE"
+          ]
+        },
+        {
+          "id": "fresh-browser-method",
+          "control": false,
+          "result": {
+            "outcome": "rejected",
+            "error": "TypeError: Failed to fetch"
+          },
+          "wire": {
+            "clientSyns": 1,
+            "serverSynAcks": 1,
+            "clientPayloadPackets": 1,
+            "serverPayloadPackets": 1,
+            "udpPackets": 0,
+            "clientFirstUDPPayload": null,
+            "clientFirstPayload": {
+              "hex": "4f5054494f4e53202f7072696d656420485454502f312e310d0a486f73743a203132372e302e302e313a323232350d0a436f6e6e656374696f6e3a206b6565702d616c6976650d0a4163636570743a202a2f2a0d0a4163636573732d436f6e74",
+              "ascii": "OPTIONS /primed HTTP/1.1\r\nHost: 127.0.0.1:2225\r\nConnection: keep-alive\r\nAccept: */*\r\nAccess-Control-Request-Method: SSH-2.0-BigSSH_Lab\r\nOrigin: http://127.0.0.1"
+            },
+            "serverFirstPayload": {
+              "hex": "5353482d322e302d64726f70626561725f323032352e38380d0a0000021c0714d2e58c61e6a63984b9f352b2033be3940000010c736e747275703736317832353531392d7368613531322c736e747275703736317832353531392d7368613531",
+              "ascii": "SSH-2.0-dropbear_2025.88\r\n.........a..9...R..;......sntrup761x25519-sha512,sntrup761x25519-sha512@openssh.com,mlkem768x25519-sha256,curve25519-sha256,curve25519"
+            },
+            "sshTextSeenInClientPayload": true,
+            "clientFirstPayloadStartsSSH": false
+          },
+          "serverLogs": "[15] Oct 16 01:43:53 Child connection from [fixture-address]:43774\n[15] Oct 16 01:43:53 Exit before auth from <[fixture-address]:43774>: Exited normally",
+          "consoleErrors": [
+            "Failed to load resource: net::ERR_INVALID_HTTP_RESPONSE"
+          ],
+          "failedRequests": [
+            "net::ERR_INVALID_HTTP_RESPONSE"
+          ]
+        },
+        {
+          "id": "service-worker-preflight-attempt",
+          "control": false,
+          "result": {
+            "outcome": "rejected",
+            "error": "TypeError: Failed to fetch",
+            "serviceWorkerControlled": true,
+            "positiveControl": "LOCAL_SW_CONTROL",
+            "intercepted": [
+              "SSH-2.0-BigSSH_Lab"
+            ]
+          },
+          "wire": {
+            "clientSyns": 1,
+            "serverSynAcks": 1,
+            "clientPayloadPackets": 1,
+            "serverPayloadPackets": 1,
+            "udpPackets": 0,
+            "clientFirstUDPPayload": null,
+            "clientFirstPayload": {
+              "hex": "4f5054494f4e53202f7072696d656420485454502f312e310d0a486f73743a203132372e302e302e313a323232350d0a436f6e6e656374696f6e3a206b6565702d616c6976650d0a4163636570743a202a2f2a0d0a4163636573732d436f6e74",
+              "ascii": "OPTIONS /primed HTTP/1.1\r\nHost: 127.0.0.1:2225\r\nConnection: keep-alive\r\nAccept: */*\r\nAccess-Control-Request-Method: SSH-2.0-BigSSH_Lab\r\nOrigin: http://127.0.0.1"
+            },
+            "serverFirstPayload": {
+              "hex": "5353482d322e302d64726f70626561725f323032352e38380d0a0000021c07146564fdbb9b6d05a2f5ef6f112d8959140000010c736e747275703736317832353531392d7368613531322c736e747275703736317832353531392d7368613531",
+              "ascii": "SSH-2.0-dropbear_2025.88\r\n......ed...m....o.-.Y.....sntrup761x25519-sha512,sntrup761x25519-sha512@openssh.com,mlkem768x25519-sha256,curve25519-sha256,curve25519"
+            },
+            "sshTextSeenInClientPayload": true,
+            "clientFirstPayloadStartsSSH": false
+          },
+          "serverLogs": "[16] Oct 16 01:43:54 Child connection from [fixture-address]:43784\n[16] Oct 16 01:43:54 Exit before auth from <[fixture-address]:43784>: Exited normally",
+          "consoleErrors": [
+            "Failed to load resource: net::ERR_FAILED"
+          ],
+          "failedRequests": [
+            "net::ERR_FAILED"
+          ]
+        },
+        {
+          "id": "native-identification",
+          "control": true,
+          "result": {
+            "outcome": "kexinit",
+            "bytesReceived": 570,
+            "banner": "SSH-2.0-dropbear_2025.88",
+            "messageTypes": [
+              20
+            ],
+            "disconnects": []
+          },
+          "wire": {
+            "clientSyns": 1,
+            "serverSynAcks": 1,
+            "clientPayloadPackets": 1,
+            "serverPayloadPackets": 1,
+            "udpPackets": 0,
+            "clientFirstUDPPayload": null,
+            "clientFirstPayload": {
+              "hex": "5353482d322e302d4269675353485f436f6e74726f6c0d0a",
+              "ascii": "SSH-2.0-BigSSH_Control\r\n"
+            },
+            "serverFirstPayload": {
+              "hex": "5353482d322e302d64726f70626561725f323032352e38380d0a0000021c07145912dfdb760f0d8f95cce6b570926e680000010c736e747275703736317832353531392d7368613531322c736e747275703736317832353531392d7368613531",
+              "ascii": "SSH-2.0-dropbear_2025.88\r\n......Y...v.\r.....p.nh....sntrup761x25519-sha512,sntrup761x25519-sha512@openssh.com,mlkem768x25519-sha256,curve25519-sha256,curve25519"
+            },
+            "sshTextSeenInClientPayload": true,
+            "clientFirstPayloadStartsSSH": true
+          },
+          "serverLogs": "[17] Oct 16 01:43:55 Child connection from [fixture-address]:43792\n[17] Oct 16 01:43:55 Exit before auth from <[fixture-address]:43792>: Exited normally",
+          "consoleErrors": [],
+          "failedRequests": []
+        },
+        {
+          "id": "native-full-handshake",
+          "control": true,
+          "result": {
+            "authenticated": false,
+            "authenticationReached": true,
+            "error": "ssh: handshake failed: ssh: unable to authenticate, attempted methods [none], no supported methods remain",
+            "fingerprint": "SHA256:qQYqSLAyBEsoZaLWew5AzXoPUg7mXrHD8fKS2Z5h8S8",
+            "hostKeySeen": true,
+            "outcome": "authentication-reached"
+          },
+          "wire": {
+            "clientSyns": 1,
+            "serverSynAcks": 1,
+            "clientPayloadPackets": 6,
+            "serverPayloadPackets": 4,
+            "udpPackets": 0,
+            "clientFirstUDPPayload": null,
+            "clientFirstPayload": {
+              "hex": "5353482d322e302d4269675353485f436f6e74726f6c0d0a",
+              "ascii": "SSH-2.0-BigSSH_Control\r\n"
+            },
+            "serverFirstPayload": {
+              "hex": "5353482d322e302d64726f70626561725f323032352e38380d0a0000021c0714b588b2dfb7729951e55cbeda6f4f86e70000010c736e747275703736317832353531392d7368613531322c736e747275703736317832353531392d7368613531",
+              "ascii": "SSH-2.0-dropbear_2025.88\r\n...........r.Q.\\..oO......sntrup761x25519-sha512,sntrup761x25519-sha512@openssh.com,mlkem768x25519-sha256,curve25519-sha256,curve25519"
+            },
+            "sshTextSeenInClientPayload": true,
+            "clientFirstPayloadStartsSSH": true
+          },
+          "serverLogs": "[18] Oct 16 01:43:56 Child connection from [fixture-address]:43796\n[18] Oct 16 01:43:56 Generated hostkey /etc/dropbear/dropbear_ecdsa_host_key, fingerprint is SHA256:qQYqSLAyBEsoZaLWew5AzXoPUg7mXrHD8fKS2Z5h8S8\n[18] Oct 16 01:43:56 Login attempt for nonexistent user from [fixture-address]:43796\n[18] Oct 16 01:43:56 Exit before auth from <[fixture-address]:43796>: Exited normally",
+          "consoleErrors": [],
+          "failedRequests": []
+        },
+        {
+          "id": "native-exact-first-line",
+          "control": true,
+          "result": {
+            "outcome": "kexinit",
+            "bytesReceived": 570,
+            "banner": "SSH-2.0-dropbear_2025.88",
+            "messageTypes": [
+              20
+            ],
+            "disconnects": []
+          },
+          "wire": {
+            "clientSyns": 1,
+            "serverSynAcks": 1,
+            "clientPayloadPackets": 1,
+            "serverPayloadPackets": 1,
+            "udpPackets": 0,
+            "clientFirstUDPPayload": null,
+            "clientFirstPayload": {
+              "hex": "5353482d322e302d4269675353485f4c6162202f7072696d656420485454502f312e310d0a",
+              "ascii": "SSH-2.0-BigSSH_Lab /primed HTTP/1.1\r\n"
+            },
+            "serverFirstPayload": {
+              "hex": "5353482d322e302d64726f70626561725f323032352e38380d0a0000021c0714a5f31a21924703656da98732738b9ff60000010c736e747275703736317832353531392d7368613531322c736e747275703736317832353531392d7368613531",
+              "ascii": "SSH-2.0-dropbear_2025.88\r\n.........!.G.em..2s.......sntrup761x25519-sha512,sntrup761x25519-sha512@openssh.com,mlkem768x25519-sha256,curve25519-sha256,curve25519"
+            },
+            "sshTextSeenInClientPayload": true,
+            "clientFirstPayloadStartsSSH": true
+          },
+          "serverLogs": "[19] Oct 16 01:43:56 Child connection from [fixture-address]:50654\n[19] Oct 16 01:43:57 Exit before auth from <[fixture-address]:50654>: Exited normally",
+          "consoleErrors": [],
+          "failedRequests": []
+        },
+        {
+          "id": "native-full-handshake-exact-line",
+          "control": true,
+          "result": {
+            "authenticated": false,
+            "authenticationReached": true,
+            "error": "ssh: handshake failed: ssh: unable to authenticate, attempted methods [none], no supported methods remain",
+            "fingerprint": "SHA256:qQYqSLAyBEsoZaLWew5AzXoPUg7mXrHD8fKS2Z5h8S8",
+            "hostKeySeen": true,
+            "outcome": "authentication-reached"
+          },
+          "wire": {
+            "clientSyns": 1,
+            "serverSynAcks": 1,
+            "clientPayloadPackets": 6,
+            "serverPayloadPackets": 4,
+            "udpPackets": 0,
+            "clientFirstUDPPayload": null,
+            "clientFirstPayload": {
+              "hex": "5353482d322e302d4269675353485f4c6162202f7072696d656420485454502f312e310d0a",
+              "ascii": "SSH-2.0-BigSSH_Lab /primed HTTP/1.1\r\n"
+            },
+            "serverFirstPayload": {
+              "hex": "5353482d322e302d64726f70626561725f323032352e38380d0a0000021c0714990634cf8c755372d0729113daff41320000010c736e747275703736317832353531392d7368613531322c736e747275703736317832353531392d7368613531",
+              "ascii": "SSH-2.0-dropbear_2025.88\r\n........4..uSr.r....A2....sntrup761x25519-sha512,sntrup761x25519-sha512@openssh.com,mlkem768x25519-sha256,curve25519-sha256,curve25519"
+            },
+            "sshTextSeenInClientPayload": true,
+            "clientFirstPayloadStartsSSH": true
+          },
+          "serverLogs": "[20] Oct 16 01:43:57 Child connection from [fixture-address]:50668\n[20] Oct 16 01:43:57 Login attempt for nonexistent user from [fixture-address]:50668\n[20] Oct 16 01:43:57 Exit before auth from <[fixture-address]:50668>: Exited normally",
+          "consoleErrors": [],
+          "failedRequests": []
+        },
+        {
+          "id": "native-exact-http-replay",
+          "control": true,
+          "result": {
+            "outcome": "closed",
+            "bytesReceived": 570,
+            "banner": "SSH-2.0-dropbear_2025.88",
+            "messageTypes": [
+              20
+            ],
+            "disconnects": []
+          },
+          "wire": {
+            "clientSyns": 1,
+            "serverSynAcks": 1,
+            "clientPayloadPackets": 1,
+            "serverPayloadPackets": 1,
+            "udpPackets": 0,
+            "clientFirstUDPPayload": null,
+            "clientFirstPayload": {
+              "hex": "5353482d322e302d4269675353485f4c6162202f7072696d656420485454502f312e310d0a486f73743a203132372e302e302e313a323232350d0a436f6e6e656374696f6e3a206b6565702d616c6976650d0a7365632d63682d75612d706c61",
+              "ascii": "SSH-2.0-BigSSH_Lab /primed HTTP/1.1\r\nHost: 127.0.0.1:2225\r\nConnection: keep-alive\r\nsec-ch-ua-platform: \"Windows\"\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win6"
+            },
+            "serverFirstPayload": {
+              "hex": "5353482d322e302d64726f70626561725f323032352e38380d0a0000021c0714d4a5108b452ff2b79b232656fa93ecc90000010c736e747275703736317832353531392d7368613531322c736e747275703736317832353531392d7368613531",
+              "ascii": "SSH-2.0-dropbear_2025.88\r\n..........E/...#&V........sntrup761x25519-sha512,sntrup761x25519-sha512@openssh.com,mlkem768x25519-sha256,curve25519-sha256,curve25519"
+            },
+            "sshTextSeenInClientPayload": true,
+            "clientFirstPayloadStartsSSH": true
+          },
+          "serverLogs": "[21] Oct 16 01:43:58 Child connection from [fixture-address]:50680\n[21] Oct 16 01:43:58 Exit before auth from <[fixture-address]:50680>: Integrity error (bad packet size 1215263608)",
+          "consoleErrors": [],
+          "failedRequests": []
+        },
+        {
+          "id": "native-http-prefix",
+          "control": true,
+          "result": {
+            "outcome": "closed",
+            "bytesReceived": 570,
+            "banner": "SSH-2.0-dropbear_2025.88",
+            "messageTypes": [
+              20
+            ],
+            "disconnects": []
+          },
+          "wire": {
+            "clientSyns": 1,
+            "serverSynAcks": 1,
+            "clientPayloadPackets": 1,
+            "serverPayloadPackets": 1,
+            "udpPackets": 0,
+            "clientFirstUDPPayload": null,
+            "clientFirstPayload": {
+              "hex": "474554202f20485454502f312e310d0a0d0a5353482d322e302d4269675353485f436f6e74726f6c0d0a",
+              "ascii": "GET / HTTP/1.1\r\n\r\nSSH-2.0-BigSSH_Control\r\n"
+            },
+            "serverFirstPayload": {
+              "hex": "5353482d322e302d64726f70626561725f323032352e38380d0a0000021c0714d686f3b8c0ebe8d0f5c99dc455f946f40000010c736e747275703736317832353531392d7368613531322c736e747275703736317832353531392d7368613531",
+              "ascii": "SSH-2.0-dropbear_2025.88\r\n..................U.F.....sntrup761x25519-sha512,sntrup761x25519-sha512@openssh.com,mlkem768x25519-sha256,curve25519-sha256,curve25519"
+            },
+            "sshTextSeenInClientPayload": true,
+            "clientFirstPayloadStartsSSH": false
+          },
+          "serverLogs": "[22] Oct 16 01:43:58 Child connection from [fixture-address]:50682\n[22] Oct 16 01:43:58 Exit before auth from <[fixture-address]:50682>: Exited normally",
+          "consoleErrors": [],
+          "failedRequests": []
+        },
+        {
+          "id": "native-stun-prefix",
+          "control": true,
+          "result": {
+            "outcome": "closed",
+            "bytesReceived": 570,
+            "banner": "SSH-2.0-dropbear_2025.88",
+            "messageTypes": [
+              20
+            ],
+            "disconnects": []
+          },
+          "wire": {
+            "clientSyns": 1,
+            "serverSynAcks": 1,
+            "clientPayloadPackets": 1,
+            "serverPayloadPackets": 1,
+            "udpPackets": 0,
+            "clientFirstUDPPayload": null,
+            "clientFirstPayload": {
+              "hex": "0014000100002112a4420101010101010101010101010d0a5353482d322e302d4269675353485f436f6e74726f6c0d0a",
+              "ascii": "......!..B............\r\nSSH-2.0-BigSSH_Control\r\n"
+            },
+            "serverFirstPayload": {
+              "hex": "5353482d322e302d64726f70626561725f323032352e38380d0a0000021c0714eaf0add6c82b3589de8913049097651c0000010c736e747275703736317832353531392d7368613531322c736e747275703736317832353531392d7368613531",
+              "ascii": "SSH-2.0-dropbear_2025.88\r\n...........+5.......e.....sntrup761x25519-sha512,sntrup761x25519-sha512@openssh.com,mlkem768x25519-sha256,curve25519-sha256,curve25519"
+            },
+            "sshTextSeenInClientPayload": true,
+            "clientFirstPayloadStartsSSH": false
+          },
+          "serverLogs": "[23] Oct 16 01:43:59 Child connection from [fixture-address]:50690\n[23] Oct 16 01:43:59 Exit before auth from <[fixture-address]:50690>: Exited normally",
+          "consoleErrors": [],
+          "failedRequests": []
+        }
+      ],
+      "server": {
+        "outcome": "kexinit",
+        "bytesReceived": 570,
+        "banner": "SSH-2.0-dropbear_2025.88",
+        "messageTypes": [
+          20
+        ],
+        "disconnects": []
+      },
+      "primedFirstLineStartsSSH": true,
+      "summary": {
+        "cacheVerified": true,
+        "sshLookingFirstLine": true,
+        "browserReadServerData": false,
+        "fullSSHSessionAttempted": false
+      }
+    }
+  ],
+  "goVersion": "go version go1.26.5 windows/amd64",
+  "browser": {
+    "engine": "chromium",
+    "version": "156.0.8078.4"
+  },
+  "scope": "Requires cooperating HTTP preparation of the target endpoint. This is not a portable technique for unchanged third-party servers. Native replays are controls, not browser-originated SSH sessions."
+}
