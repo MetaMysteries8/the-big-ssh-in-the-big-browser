@@ -4,6 +4,8 @@ The first implemented path is a normal browser tab → extension → native-mess
 
 The message framing, authorization, queue bounds, and teardown behavior are documented in [NATIVE-PROTOCOL.md](NATIVE-PROTOCOL.md).
 
+For helper-free browser networking experiments, run the separate [direct-tab protocol lab](../experiments/direct-tab/README.md). It does not require the extension or native-host registration and does not replace the working client's login tests.
+
 ## Windows setup
 
 Requirements: Node.js 24, Go 1.26.5, and desktop Chrome/Chromium or Edge. The installer registers a native host for the current user; it needs no administrator account and starts no background service. Keep this checkout in place while using its registered binary.

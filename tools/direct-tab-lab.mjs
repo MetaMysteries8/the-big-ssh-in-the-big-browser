@@ -20,6 +20,7 @@ if (!browserType || (process.argv.length > 3 && (!executablePath || process.argv
 const launchOptions = { headless: true, ...(executablePath ? { executablePath } : {}) };
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 let browser, server, capture, fixtureStarted = false, captureError;
+const caseBrowsers = new Set();
 const chunks = []; let capturedBytes = 0;
 const report = {
   schemaVersion: 1, date: new Date().toISOString(), os: process.platform,
@@ -66,6 +67,7 @@ async function runCase(reportPage, id, hypothesis, operation, control = false, i
   // Terminate the entire per-case browser process before taking its final
   // capture, so retries cannot become another experiment's evidence.
   const caseBrowser = await browserType.launch(launchOptions);
+  caseBrowsers.add(caseBrowser);
   const context = await caseBrowser.newContext();
   const page = await context.newPage();
   await page.goto(new URL(isolated ? '/isolated' : '/', reportPage.url()).href);
@@ -81,6 +83,7 @@ async function runCase(reportPage, id, hypothesis, operation, control = false, i
   catch (error) { result = { outcome: 'harness-error', error: `${error.name}: ${error.message}` }; }
   await context.close();
   await caseBrowser.close();
+  caseBrowsers.delete(caseBrowser);
   await sleep(200); // Allow the passive capture pipe to flush; not a retry.
   page.off('console', onConsole); page.off('requestfailed', onRequest);
   const entry = { id, hypothesis, control, durationMs: Math.round(performance.now() - started), result, wire: summarize(observed().slice(start)), consoleErrors: errors, failedRequests };
@@ -188,6 +191,8 @@ try {
   await writeFile(join(evidence, `${browserName}-failure.pcap`), Buffer.concat(chunks, capturedBytes));
   throw error;
 } finally {
+  // Also owns browsers whose page/context setup failed before the probe ran.
+  await Promise.allSettled([...caseBrowsers].map(instance => instance.close()));
   await browser?.close();
   if (server) await new Promise(resolve => server.close(resolve));
   capture?.kill();

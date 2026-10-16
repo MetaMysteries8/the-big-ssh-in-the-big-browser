@@ -1,0 +1,709 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-16T00:44:23.026Z",
+  "os": "win32",
+  "sourceRevision": "43536614f62e76a57593921b27cd223602b26138",
+  "sourceDirty": false,
+  "setup": {
+    "fixture": "unchanged OpenSSH in a loopback-published container; passive eth0 packet capture",
+    "probeIsolation": "fresh browser process per experiment",
+    "extensions": false,
+    "nativeConnector": false,
+    "remoteRelay": false,
+    "externalSTUN": false,
+    "TURN": false,
+    "networkingCapabilityFlags": false,
+    "liveRailwayAttemptsUsed": 0,
+    "port22Published": true,
+    "sshVersion": "OpenSSH_10.2p1, OpenSSL 3.5.8 25 Aug 2026"
+  },
+  "results": [
+    {
+      "id": "native-ssh-control",
+      "hypothesis": "The real sshd accepts a native client SSH identification.",
+      "control": true,
+      "durationMs": 297,
+      "result": {
+        "outcome": "identification",
+        "prefix": "SSH-2.0-OpenSSH_10.2"
+      },
+      "wire": {
+        "clientSyns": 1,
+        "serverSynAcks": 1,
+        "clientPayloadPackets": 1,
+        "serverPayloadPackets": 2,
+        "udpPackets": 0,
+        "clientFirstUDPPayload": null,
+        "clientFirstPayload": {
+          "hex": "5353482d322e302d4269675353485f4c61620d0a",
+          "ascii": "SSH-2.0-BigSSH_Lab\r\n"
+        },
+        "serverFirstPayload": {
+          "hex": "5353482d322e302d4f70656e5353485f31302e320d0a",
+          "ascii": "SSH-2.0-OpenSSH_10.2\r\n"
+        },
+        "sshTextSeenInClientPayload": true,
+        "clientFirstPayloadStartsSSH": true
+      },
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "id": "http-positive-control",
+      "hypothesis": "Normal HTTP can carry a banner-shaped body, with a cooperating HTTP server.",
+      "control": true,
+      "durationMs": 266,
+      "result": {
+        "outcome": "response",
+        "type": "basic",
+        "status": 200,
+        "readableBody": true,
+        "bodyPrefix": "SSH-2.0-HTTP_Control\r\n"
+      },
+      "wire": {
+        "clientSyns": 0,
+        "serverSynAcks": 0,
+        "clientPayloadPackets": 0,
+        "serverPayloadPackets": 0,
+        "udpPackets": 0,
+        "clientFirstUDPPayload": null,
+        "clientFirstPayload": null,
+        "serverFirstPayload": null,
+        "sshTextSeenInClientPayload": false,
+        "clientFirstPayloadStartsSSH": false
+      },
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "id": "ordinary-tab-sockets",
+      "hypothesis": "Look for direct socket APIs in a secure ordinary tab.",
+      "control": false,
+      "durationMs": 251,
+      "result": {
+        "secureContext": true,
+        "crossOriginIsolated": false,
+        "TCPSocket": "undefined",
+        "UDPSocket": "undefined",
+        "WebSocket": "function",
+        "WebSocketStream": "function",
+        "WebTransport": "function",
+        "RTCPeerConnection": "function",
+        "chromeSocketsTCP": "undefined"
+      },
+      "wire": {
+        "clientSyns": 0,
+        "serverSynAcks": 0,
+        "clientPayloadPackets": 0,
+        "serverPayloadPackets": 0,
+        "udpPackets": 0,
+        "clientFirstUDPPayload": null,
+        "clientFirstPayload": null,
+        "serverFirstPayload": null,
+        "sshTextSeenInClientPayload": false,
+        "clientFirstPayloadStartsSSH": false
+      },
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "id": "ordinary-tab-direct-tcp",
+      "hypothesis": "Attempt actual raw TCP only if TCPSocket is exposed.",
+      "control": false,
+      "durationMs": 243,
+      "result": {
+        "outcome": "unsupported"
+      },
+      "wire": {
+        "clientSyns": 0,
+        "serverSynAcks": 0,
+        "clientPayloadPackets": 0,
+        "serverPayloadPackets": 0,
+        "udpPackets": 0,
+        "clientFirstUDPPayload": null,
+        "clientFirstPayload": null,
+        "serverFirstPayload": null,
+        "sshTextSeenInClientPayload": false,
+        "clientFirstPayloadStartsSSH": false
+      },
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "id": "worker-sockets",
+      "hypothesis": "Does moving the code into a worker expose TCP or permit CONNECT?",
+      "control": false,
+      "durationMs": 248,
+      "result": {
+        "secureContext": true,
+        "crossOriginIsolated": false,
+        "TCPSocket": "undefined",
+        "UDPSocket": "undefined",
+        "WebSocket": "function",
+        "WebTransport": "function",
+        "connect": "TypeError: Failed to execute 'fetch' on 'WorkerGlobalScope': 'CONNECT' HTTP method is unsupported."
+      },
+      "wire": {
+        "clientSyns": 0,
+        "serverSynAcks": 0,
+        "clientPayloadPackets": 0,
+        "serverPayloadPackets": 0,
+        "udpPackets": 0,
+        "clientFirstUDPPayload": null,
+        "clientFirstPayload": null,
+        "serverFirstPayload": null,
+        "sshTextSeenInClientPayload": false,
+        "clientFirstPayloadStartsSSH": false
+      },
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "id": "fetch-port-22",
+      "hypothesis": "Does Fetch reach sshd on its usual port?",
+      "control": false,
+      "durationMs": 249,
+      "result": {
+        "outcome": "rejected",
+        "error": "TypeError: Failed to fetch"
+      },
+      "wire": {
+        "clientSyns": 0,
+        "serverSynAcks": 0,
+        "clientPayloadPackets": 0,
+        "serverPayloadPackets": 0,
+        "udpPackets": 0,
+        "clientFirstUDPPayload": null,
+        "clientFirstPayload": null,
+        "serverFirstPayload": null,
+        "sshTextSeenInClientPayload": false,
+        "clientFirstPayloadStartsSSH": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: net::ERR_UNSAFE_PORT"
+      ],
+      "failedRequests": [
+        "net::ERR_UNSAFE_PORT"
+      ]
+    },
+    {
+      "id": "websocket-port-22",
+      "hypothesis": "Does WebSocket reach sshd on its usual port?",
+      "control": false,
+      "durationMs": 253,
+      "result": {
+        "outcome": "error",
+        "readyState": 3
+      },
+      "wire": {
+        "clientSyns": 0,
+        "serverSynAcks": 0,
+        "clientPayloadPackets": 0,
+        "serverPayloadPackets": 0,
+        "udpPackets": 0,
+        "clientFirstUDPPayload": null,
+        "clientFirstPayload": null,
+        "serverFirstPayload": null,
+        "sshTextSeenInClientPayload": false,
+        "clientFirstPayloadStartsSSH": false
+      },
+      "consoleErrors": [
+        "WebSocket connection to 'ws://127.0.0.1:22/port22' failed: Error in connection establishment: net::ERR_UNSAFE_PORT"
+      ],
+      "failedRequests": []
+    },
+    {
+      "id": "fetch-allowed-port",
+      "hypothesis": "Does moving SSH to a browser-allowed port remove the barrier?",
+      "control": false,
+      "durationMs": 253,
+      "result": {
+        "outcome": "rejected",
+        "error": "TypeError: Failed to fetch"
+      },
+      "wire": {
+        "clientSyns": 1,
+        "serverSynAcks": 1,
+        "clientPayloadPackets": 1,
+        "serverPayloadPackets": 3,
+        "udpPackets": 0,
+        "clientFirstUDPPayload": null,
+        "clientFirstPayload": {
+          "hex": "474554202f66657463682d616c6c6f7765642d706f727420485454502f312e310d0a486f73743a203132372e302e302e313a323232340d0a436f6e6e656374696f6e3a206b6565702d616c6976650d0a507261676d613a206e6f2d6361636865",
+          "ascii": "GET /fetch-allowed-port HTTP/1.1\r\nHost: 127.0.0.1:2224\r\nConnection: keep-alive\r\nPragma: no-cache\r\nCache-Control: no-cache\r\nsec-ch-ua-platform: \"Windows\"\r\nUser-A"
+        },
+        "serverFirstPayload": {
+          "hex": "5353482d322e302d4f70656e5353485f31302e320d0a",
+          "ascii": "SSH-2.0-OpenSSH_10.2\r\n"
+        },
+        "sshTextSeenInClientPayload": false,
+        "clientFirstPayloadStartsSSH": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: net::ERR_INVALID_HTTP_RESPONSE"
+      ],
+      "failedRequests": [
+        "net::ERR_INVALID_HTTP_RESPONSE"
+      ]
+    },
+    {
+      "id": "fetch-cors-get",
+      "hypothesis": "Does a normal CORS fetch expose the SSH response where no-CORS does not?",
+      "control": false,
+      "durationMs": 249,
+      "result": {
+        "outcome": "rejected",
+        "error": "TypeError: Failed to fetch"
+      },
+      "wire": {
+        "clientSyns": 1,
+        "serverSynAcks": 1,
+        "clientPayloadPackets": 1,
+        "serverPayloadPackets": 3,
+        "udpPackets": 0,
+        "clientFirstUDPPayload": null,
+        "clientFirstPayload": {
+          "hex": "474554202f66657463682d636f72732d67657420485454502f312e310d0a486f73743a203132372e302e302e313a323232340d0a436f6e6e656374696f6e3a206b6565702d616c6976650d0a507261676d613a206e6f2d63616368650d0a4361",
+          "ascii": "GET /fetch-cors-get HTTP/1.1\r\nHost: 127.0.0.1:2224\r\nConnection: keep-alive\r\nPragma: no-cache\r\nCache-Control: no-cache\r\nsec-ch-ua-platform: \"Windows\"\r\nUser-Agent"
+        },
+        "serverFirstPayload": {
+          "hex": "5353482d322e302d4f70656e5353485f31302e320d0a",
+          "ascii": "SSH-2.0-OpenSSH_10.2\r\n"
+        },
+        "sshTextSeenInClientPayload": false,
+        "clientFirstPayloadStartsSSH": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: net::ERR_INVALID_HTTP_RESPONSE"
+      ],
+      "failedRequests": [
+        "net::ERR_INVALID_HTTP_RESPONSE"
+      ]
+    },
+    {
+      "id": "fetch-ssh-body",
+      "hypothesis": "Can an SSH identification in a no-CORS POST body become the SSH stream?",
+      "control": false,
+      "durationMs": 250,
+      "result": {
+        "outcome": "rejected",
+        "error": "TypeError: Failed to fetch"
+      },
+      "wire": {
+        "clientSyns": 1,
+        "serverSynAcks": 1,
+        "clientPayloadPackets": 1,
+        "serverPayloadPackets": 3,
+        "udpPackets": 0,
+        "clientFirstUDPPayload": null,
+        "clientFirstPayload": {
+          "hex": "504f5354202f66657463682d7373682d626f647920485454502f312e310d0a486f73743a203132372e302e302e313a323232340d0a436f6e6e656374696f6e3a206b6565702d616c6976650d0a436f6e74656e742d4c656e6774683a2032300d",
+          "ascii": "POST /fetch-ssh-body HTTP/1.1\r\nHost: 127.0.0.1:2224\r\nConnection: keep-alive\r\nContent-Length: 20\r\nPragma: no-cache\r\nCache-Control: no-cache\r\nsec-ch-ua-platform: "
+        },
+        "serverFirstPayload": {
+          "hex": "5353482d322e302d4f70656e5353485f31302e320d0a",
+          "ascii": "SSH-2.0-OpenSSH_10.2\r\n"
+        },
+        "sshTextSeenInClientPayload": true,
+        "clientFirstPayloadStartsSSH": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: net::ERR_INVALID_HTTP_RESPONSE"
+      ],
+      "failedRequests": [
+        "net::ERR_INVALID_HTTP_RESPONSE"
+      ]
+    },
+    {
+      "id": "fetch-connect",
+      "hypothesis": "Can Fetch issue HTTP CONNECT as a raw tunnel?",
+      "control": false,
+      "durationMs": 249,
+      "result": {
+        "outcome": "rejected",
+        "error": "TypeError: Failed to execute 'fetch' on 'Window': 'CONNECT' HTTP method is unsupported."
+      },
+      "wire": {
+        "clientSyns": 0,
+        "serverSynAcks": 0,
+        "clientPayloadPackets": 0,
+        "serverPayloadPackets": 0,
+        "udpPackets": 0,
+        "clientFirstUDPPayload": null,
+        "clientFirstPayload": null,
+        "serverFirstPayload": null,
+        "sshTextSeenInClientPayload": false,
+        "clientFirstPayloadStartsSSH": false
+      },
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "id": "fetch-ssh-method",
+      "hypothesis": "Can a custom HTTP method make the first line look like an SSH identification?",
+      "control": false,
+      "durationMs": 252,
+      "result": {
+        "outcome": "rejected",
+        "error": "TypeError: Failed to fetch"
+      },
+      "wire": {
+        "clientSyns": 1,
+        "serverSynAcks": 1,
+        "clientPayloadPackets": 1,
+        "serverPayloadPackets": 3,
+        "udpPackets": 0,
+        "clientFirstUDPPayload": null,
+        "clientFirstPayload": {
+          "hex": "4f5054494f4e53202f66657463682d7373682d6d6574686f6420485454502f312e310d0a486f73743a203132372e302e302e313a323232340d0a436f6e6e656374696f6e3a206b6565702d616c6976650d0a507261676d613a206e6f2d636163",
+          "ascii": "OPTIONS /fetch-ssh-method HTTP/1.1\r\nHost: 127.0.0.1:2224\r\nConnection: keep-alive\r\nPragma: no-cache\r\nCache-Control: no-cache\r\nAccept: */*\r\nAccess-Control-Request"
+        },
+        "serverFirstPayload": {
+          "hex": "5353482d322e302d4f70656e5353485f31302e320d0a",
+          "ascii": "SSH-2.0-OpenSSH_10.2\r\n"
+        },
+        "sshTextSeenInClientPayload": true,
+        "clientFirstPayloadStartsSSH": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: net::ERR_INVALID_HTTP_RESPONSE"
+      ],
+      "failedRequests": [
+        "net::ERR_INVALID_HTTP_RESPONSE"
+      ]
+    },
+    {
+      "id": "fetch-ssh-method-no-cors",
+      "hypothesis": "Can no-CORS suppress the preflight for that SSH-shaped method?",
+      "control": false,
+      "durationMs": 250,
+      "result": {
+        "outcome": "rejected",
+        "error": "TypeError: Failed to execute 'fetch' on 'Window': 'SSH-2.0-BigSSH_Lab' is unsupported in no-cors mode."
+      },
+      "wire": {
+        "clientSyns": 0,
+        "serverSynAcks": 0,
+        "clientPayloadPackets": 0,
+        "serverPayloadPackets": 0,
+        "udpPackets": 0,
+        "clientFirstUDPPayload": null,
+        "clientFirstPayload": null,
+        "serverFirstPayload": null,
+        "sshTextSeenInClientPayload": false,
+        "clientFirstPayloadStartsSSH": false
+      },
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "id": "fetch-stream",
+      "hypothesis": "Does a ReadableStream request body bypass the HTTP protocol?",
+      "control": false,
+      "durationMs": 258,
+      "result": {
+        "outcome": "rejected",
+        "error": "TypeError: Failed to fetch"
+      },
+      "wire": {
+        "clientSyns": 1,
+        "serverSynAcks": 1,
+        "clientPayloadPackets": 1,
+        "serverPayloadPackets": 3,
+        "udpPackets": 0,
+        "clientFirstUDPPayload": null,
+        "clientFirstPayload": {
+          "hex": "4f5054494f4e53202f66657463682d73747265616d20485454502f312e310d0a486f73743a203132372e302e302e313a323232340d0a436f6e6e656374696f6e3a206b6565702d616c6976650d0a507261676d613a206e6f2d63616368650d0a",
+          "ascii": "OPTIONS /fetch-stream HTTP/1.1\r\nHost: 127.0.0.1:2224\r\nConnection: keep-alive\r\nPragma: no-cache\r\nCache-Control: no-cache\r\nAccept: */*\r\nAccess-Control-Request-Met"
+        },
+        "serverFirstPayload": {
+          "hex": "5353482d322e302d4f70656e5353485f31302e320d0a",
+          "ascii": "SSH-2.0-OpenSSH_10.2\r\n"
+        },
+        "sshTextSeenInClientPayload": false,
+        "clientFirstPayloadStartsSSH": false
+      },
+      "consoleErrors": [
+        "Failed to load resource: net::ERR_INVALID_HTTP_RESPONSE"
+      ],
+      "failedRequests": [
+        "net::ERR_INVALID_HTTP_RESPONSE"
+      ]
+    },
+    {
+      "id": "websocket-allowed-port",
+      "hypothesis": "Will a stock SSH peer satisfy a WebSocket handshake?",
+      "control": false,
+      "durationMs": 252,
+      "result": {
+        "outcome": "error",
+        "readyState": 3
+      },
+      "wire": {
+        "clientSyns": 1,
+        "serverSynAcks": 1,
+        "clientPayloadPackets": 1,
+        "serverPayloadPackets": 3,
+        "udpPackets": 0,
+        "clientFirstUDPPayload": null,
+        "clientFirstPayload": {
+          "hex": "474554202f776562736f636b657420485454502f312e310d0a486f73743a203132372e302e302e313a323232340d0a436f6e6e656374696f6e3a20557067726164650d0a507261676d613a206e6f2d63616368650d0a43616368652d436f6e74",
+          "ascii": "GET /websocket HTTP/1.1\r\nHost: 127.0.0.1:2224\r\nConnection: Upgrade\r\nPragma: no-cache\r\nCache-Control: no-cache\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; "
+        },
+        "serverFirstPayload": {
+          "hex": "5353482d322e302d4f70656e5353485f31302e320d0a",
+          "ascii": "SSH-2.0-OpenSSH_10.2\r\n"
+        },
+        "sshTextSeenInClientPayload": false,
+        "clientFirstPayloadStartsSSH": false
+      },
+      "consoleErrors": [
+        "WebSocket connection to 'ws://127.0.0.1:2224/websocket' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE"
+      ],
+      "failedRequests": []
+    },
+    {
+      "id": "websocket-ssh-subprotocol",
+      "hypothesis": "Does declaring an SSH-shaped WebSocket subprotocol change the first bytes?",
+      "control": false,
+      "durationMs": 246,
+      "result": {
+        "outcome": "error",
+        "readyState": 3
+      },
+      "wire": {
+        "clientSyns": 1,
+        "serverSynAcks": 1,
+        "clientPayloadPackets": 1,
+        "serverPayloadPackets": 3,
+        "udpPackets": 0,
+        "clientFirstUDPPayload": null,
+        "clientFirstPayload": {
+          "hex": "474554202f73756270726f746f636f6c20485454502f312e310d0a486f73743a203132372e302e302e313a323232340d0a436f6e6e656374696f6e3a20557067726164650d0a507261676d613a206e6f2d63616368650d0a43616368652d436f",
+          "ascii": "GET /subprotocol HTTP/1.1\r\nHost: 127.0.0.1:2224\r\nConnection: Upgrade\r\nPragma: no-cache\r\nCache-Control: no-cache\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64"
+        },
+        "serverFirstPayload": {
+          "hex": "5353482d322e302d4f70656e5353485f31302e320d0a",
+          "ascii": "SSH-2.0-OpenSSH_10.2\r\n"
+        },
+        "sshTextSeenInClientPayload": true,
+        "clientFirstPayloadStartsSSH": false
+      },
+      "consoleErrors": [
+        "WebSocket connection to 'ws://127.0.0.1:2224/subprotocol' failed: Error during WebSocket handshake: net::ERR_INVALID_HTTP_RESPONSE"
+      ],
+      "failedRequests": []
+    },
+    {
+      "id": "wss-to-ssh",
+      "hypothesis": "Can a TLS WebSocket wrapper negotiate directly with ordinary sshd?",
+      "control": false,
+      "durationMs": 270,
+      "result": {
+        "outcome": "error",
+        "readyState": 3
+      },
+      "wire": {
+        "clientSyns": 2,
+        "serverSynAcks": 2,
+        "clientPayloadPackets": 2,
+        "serverPayloadPackets": 6,
+        "udpPackets": 0,
+        "clientFirstUDPPayload": null,
+        "clientFirstPayload": {
+          "hex": "16030106dc010006d8030376564f58eeee044247d8166394393ebc9d964a0c5bb27709c844f4fc31c8bc0e207a8c2b4916950e3c31e98c6922d10e085ac99135f774a990ca4510403eb1fea800207a7a130113021303c02bc02fc02cc030cca9",
+          "ascii": "...........vVOX...BG..c.9>...J.[.w\t.D..1... z.+I...<1..i\"...Z..5.t...E.@>.... zz.......+./.,.0............./.5...oJJ...\r....::\t.\t.\t............................."
+        },
+        "serverFirstPayload": {
+          "hex": "5353482d322e302d4f70656e5353485f31302e320d0a",
+          "ascii": "SSH-2.0-OpenSSH_10.2\r\n"
+        },
+        "sshTextSeenInClientPayload": false,
+        "clientFirstPayloadStartsSSH": false
+      },
+      "consoleErrors": [
+        "WebSocket connection to 'wss://127.0.0.1:2224/secure' failed: Error in connection establishment: net::ERR_SSL_PROTOCOL_ERROR"
+      ],
+      "failedRequests": []
+    },
+    {
+      "id": "webtransport-to-ssh",
+      "hypothesis": "Does WebTransport reach TCP SSH, or emit QUIC on UDP?",
+      "control": false,
+      "durationMs": 3268,
+      "result": {
+        "outcome": "rejected",
+        "error": "Error: QUIC handshake timed out."
+      },
+      "wire": {
+        "clientSyns": 0,
+        "serverSynAcks": 0,
+        "clientPayloadPackets": 0,
+        "serverPayloadPackets": 0,
+        "udpPackets": 4,
+        "clientFirstUDPPayload": {
+          "hex": "ce0000000108c4690fc422071aff000044d08327305d30d411eaa5a35a9b4b8103c9d8862fecd9c480c463aeeee51ae155f30d1beef8c010b2edf6f71e4f8edd98ec74711d6cafe93baff1e695627fc411e05291b0393503ba7eec42d09cfda9",
+          "ascii": ".......i..\".....D..'0]0.....Z.K...../.....c.....U.\r..........O....tq.l..;....b....R..95..~.B.......n9.h.u..@^.C.'.....M..k..h.....9p...&.^..K:......k.\"j.[[~...."
+        },
+        "clientFirstPayload": null,
+        "serverFirstPayload": null,
+        "sshTextSeenInClientPayload": false,
+        "clientFirstPayloadStartsSSH": false
+      },
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "id": "webrtc-local-control",
+      "hypothesis": "Can two cooperating local data-channel peers exchange bytes without STUN/TURN?",
+      "control": true,
+      "durationMs": 637,
+      "result": {
+        "outcome": "echo",
+        "body": "SSH-2.0-RTC_Control\r\n",
+        "selectedPair": {
+          "protocol": "udp",
+          "localType": "host",
+          "remoteType": "host"
+        },
+        "externalIceServers": 0
+      },
+      "wire": {
+        "clientSyns": 0,
+        "serverSynAcks": 0,
+        "clientPayloadPackets": 0,
+        "serverPayloadPackets": 0,
+        "udpPackets": 0,
+        "clientFirstUDPPayload": null,
+        "clientFirstPayload": null,
+        "serverFirstPayload": null,
+        "sshTextSeenInClientPayload": false,
+        "clientFirstPayloadStartsSSH": false
+      },
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "id": "webrtc-tcp-to-ssh",
+      "hypothesis": "Can an ICE-TCP candidate pointing at sshd act as a raw SSH socket?",
+      "control": false,
+      "durationMs": 3334,
+      "result": {
+        "outcome": "connecting",
+        "iceState": "checking",
+        "selectedPair": null,
+        "externalIceServers": 0
+      },
+      "wire": {
+        "clientSyns": 1,
+        "serverSynAcks": 1,
+        "clientPayloadPackets": 1,
+        "serverPayloadPackets": 3,
+        "udpPackets": 0,
+        "clientFirstUDPPayload": null,
+        "clientFirstPayload": {
+          "hex": "0064000100502112a44234567859767874366241754a00060009786676683a32715853000000c0570004000003e7802a0008267f81fe2dd5ff6e002500000024000450001eff000800149188613b6a359393c1a5eebe19558c4ff34e72c18028",
+          "ascii": ".d...P!..B4VxYvxt6bAuJ...\txfvh:2qXS....W.......*..&...-..n.%...$..P.........a;j5.......U.O.Nr..(..5..."
+        },
+        "serverFirstPayload": {
+          "hex": "5353482d322e302d4f70656e5353485f31302e320d0a",
+          "ascii": "SSH-2.0-OpenSSH_10.2\r\n"
+        },
+        "sshTextSeenInClientPayload": false,
+        "clientFirstPayloadStartsSSH": false
+      },
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "id": "isolated-tab-sockets",
+      "hypothesis": "Do COOP/COEP and cross-origin isolation grant IWA-style socket APIs?",
+      "control": false,
+      "durationMs": 239,
+      "result": {
+        "secureContext": true,
+        "crossOriginIsolated": true,
+        "TCPSocket": "undefined",
+        "UDPSocket": "undefined",
+        "WebSocket": "function",
+        "WebSocketStream": "function",
+        "WebTransport": "function",
+        "RTCPeerConnection": "function",
+        "chromeSocketsTCP": "undefined"
+      },
+      "wire": {
+        "clientSyns": 0,
+        "serverSynAcks": 0,
+        "clientPayloadPackets": 0,
+        "serverPayloadPackets": 0,
+        "udpPackets": 0,
+        "clientFirstUDPPayload": null,
+        "clientFirstPayload": null,
+        "serverFirstPayload": null,
+        "sshTextSeenInClientPayload": false,
+        "clientFirstPayloadStartsSSH": false
+      },
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "id": "isolated-tab-direct-tcp",
+      "hypothesis": "Attempt the raw TCP constructor in the COOP/COEP-isolated tab.",
+      "control": false,
+      "durationMs": 240,
+      "result": {
+        "outcome": "unsupported"
+      },
+      "wire": {
+        "clientSyns": 0,
+        "serverSynAcks": 0,
+        "clientPayloadPackets": 0,
+        "serverPayloadPackets": 0,
+        "udpPackets": 0,
+        "clientFirstUDPPayload": null,
+        "clientFirstPayload": null,
+        "serverFirstPayload": null,
+        "sshTextSeenInClientPayload": false,
+        "clientFirstPayloadStartsSSH": false
+      },
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "id": "isolated-worker-sockets",
+      "hypothesis": "Does a worker inherit TCP access from an isolated ordinary tab?",
+      "control": false,
+      "durationMs": 257,
+      "result": {
+        "secureContext": true,
+        "crossOriginIsolated": true,
+        "TCPSocket": "undefined",
+        "UDPSocket": "undefined",
+        "WebSocket": "function",
+        "WebTransport": "function",
+        "connect": "TypeError: Failed to execute 'fetch' on 'WorkerGlobalScope': 'CONNECT' HTTP method is unsupported."
+      },
+      "wire": {
+        "clientSyns": 0,
+        "serverSynAcks": 0,
+        "clientPayloadPackets": 0,
+        "serverPayloadPackets": 0,
+        "udpPackets": 0,
+        "clientFirstUDPPayload": null,
+        "clientFirstPayload": null,
+        "serverFirstPayload": null,
+        "sshTextSeenInClientPayload": false,
+        "clientFirstPayloadStartsSSH": false
+      },
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  ],
+  "browser": {
+    "engine": "chromium",
+    "version": "156.0.8078.4",
+    "customExecutable": false
+  },
+  "scope": "Transport/capability lab only. A banner-shaped payload is not a completed SSH negotiation or login. This run does not attempt full browser SSH authentication.",
+  "promisingDirectTCP": false
+}

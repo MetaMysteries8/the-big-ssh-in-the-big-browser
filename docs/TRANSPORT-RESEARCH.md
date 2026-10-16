@@ -160,6 +160,8 @@ Native agents, PKCS#11, OS Kerberos credentials, ProxyCommand processes, smart c
 
 ### E00: Capability lab and negative controls — helper-free platform research
 
+Implemented: `npm run lab:direct` runs 23 controlled probes against local OpenSSH with passive packet observation. Chromium 156 and Firefox 157 runs are recorded in [direct-tab-lab.md](results/direct-tab-lab.md). Chromium ICE-TCP reached sshd but sent STUN; Firefox no-CORS Fetch resolved an unreadable opaque response. No helper-free SSH stream was established. [Harness and remaining hypotheses](../experiments/direct-tab/README.md).
+
 Create a self-contained diagnostic page and a controlled SSH fixture. Record actual browser/OS versions, context, available constructors, permissions, and failures. Test stock SSH on its usual port and an allowed alternate port to separate port blocking from protocol mismatch. Capture server-side bytes for authorized test connections. Check WebSocket, fetch, and WebRTC assumptions with minimal cases; no subnet scanning.
 
 Deliverable: versioned result JSON, reproduction steps, and packet/log evidence. Stop a branch once its protocol mismatch is demonstrated; resume only when a concrete API or endpoint change offers a new hypothesis. Browser-specific feature flags are recorded as a different runtime, never a stock-tab pass.
