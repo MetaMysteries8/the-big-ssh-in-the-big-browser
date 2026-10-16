@@ -12,6 +12,9 @@ function run(args, extra = {}) {
 const assets = join(root, '.bigssh/web-assets');
 await mkdir(assets, { recursive: true });
 await mkdir(join(root, 'dist/connector'), { recursive: true });
+// Fetch even platform-pruned modules so their licenses are available on a
+// clean checkout, independently of the host's build-tag selection.
+run(['mod', 'download']);
 run(['build', '-trimpath', '-o', join(root, 'dist/connector', process.platform === 'win32' ? 'bigssh-connector.exe' : 'bigssh-connector'), './cmd/connector']);
 run(['build', '-trimpath', '-o', join(assets, 'ssh.wasm'), './cmd/sshwasm'], { GOOS: 'js', GOARCH: 'wasm', CGO_ENABLED: '0' });
 const goroot = spawnSync('go', ['env', 'GOROOT'], { env, encoding: 'utf8' }).stdout.trim();

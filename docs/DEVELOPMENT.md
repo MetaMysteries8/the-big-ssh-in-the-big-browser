@@ -2,6 +2,8 @@
 
 The first implemented path is a normal browser tab → extension → native-messaging connector → unchanged SSH server. SSH runs inside the tab's WASM worker; the connector only opens TCP and forwards bytes. No project backend or remote relay is involved.
 
+The message framing, authorization, queue bounds, and teardown behavior are documented in [NATIVE-PROTOCOL.md](NATIVE-PROTOCOL.md).
+
 ## Windows setup
 
 Requirements: Node.js 24, Go 1.26.5, and desktop Chrome/Chromium or Edge. The installer registers a native host for the current user; it needs no administrator account and starts no background service. Keep this checkout in place while using its registered binary.

@@ -2,6 +2,8 @@
 
 Result: **passed**, 2026-10-15 MDT (2026-10-16T00:17:45Z). This proves the installed local-helper path, not helper-free browser TCP.
 
+Tested browser/native implementation: commit `a5e2751c027f25dcff030321e09ba7b764f552c2`. Later build-packaging/CI fixes do not change its runtime code.
+
 Environment: Windows, Node.js 24.14.1, Go 1.26.5, Playwright 1.64.1 / Chromium 156.0.8078.4, Docker Desktop, unchanged OpenSSH 10.2 from Alpine 3.23. The pinned Alpine image and sshd configuration are in `tests/fixtures/openssh/Dockerfile`. No server-side browser protocol bridge is present.
 
 Reproduce with [DEVELOPMENT.md](../DEVELOPMENT.md): `npm ci`, `npm run build`, install the Chromium native host, then `npm run test:e2e` with Docker running. The harness refuses remote destinations using the native host's loopback-only test mode. Its connection path is browser WASM SSH → extension → native stdio host → TCP `127.0.0.1:2222` → container sshd. The HTTP server only serves static assets.
