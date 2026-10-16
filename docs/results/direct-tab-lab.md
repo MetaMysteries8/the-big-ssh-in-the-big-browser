@@ -28,6 +28,6 @@ The lab serves static files over HTTP and passively observes the daemon's contai
 
 Raw PCAPs remain under ignored `.bigssh/direct-tab/`; published JSON contains bounded packet prefixes and no real user credentials. Packet counts are observations, not reassembled stream lengths. Three-second timeouts bound several probes and cannot establish that no later event was possible. No full browser SSH authentication was attempted by this lab; the separate extension/local-connector prototype remains the working path.
 
-Next: a cooperating preflight-cache warmup control, SSH implementation comparisons, and more browser releases. Those hypotheses and their limitations are in the [lab backlog](../../experiments/direct-tab/README.md#next-experiments-worth-distinguishing).
+Follow-up: [prepared preflight cache, active Service Worker, and OpenSSH/Dropbear parsing controls](preflight-lab.md) are now measured in both browsers. More browser releases and additional server coverage remain in the [lab backlog](../../experiments/direct-tab/README.md#next-experiments-worth-distinguishing).
 
 Railway/dev.new live attempts: **0 of 1**. All experiment traffic targeted the owned local fixtures.

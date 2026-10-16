@@ -49,6 +49,7 @@ In `chrome://extensions`, enable Developer mode and load `dist/extension` unpack
 - [Local connector architecture and first-run modes](docs/LOCAL-CONNECTOR.md)
 - [Testing strategy and one-attempt Railway limit](docs/TESTING.md)
 - [Run the experimental ordinary-tab networking lab](experiments/direct-tab/README.md) — 23 probes with passive packet capture; [Chromium/Firefox results](docs/results/direct-tab-lab.md)
+- [Prepared-CORS and Service Worker follow-up](experiments/preflight/README.md) — OpenSSH/Dropbear parsing controls; [40-case results](docs/results/preflight-lab.md)
 - [32-option transport catalog with primary sources](docs/transport-options.json)
 - [Proposed startup API](docs/startup-api.example.mjs) — design sketch, not an implemented SDK
 - [Contributing](CONTRIBUTING.md)

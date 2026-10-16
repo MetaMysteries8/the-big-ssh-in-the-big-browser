@@ -52,8 +52,8 @@ On Windows with Chromium 156.0.8078.4 and Firefox 157.0 against OpenSSH 10.2, al
 
 ## Next experiments worth distinguishing
 
-1. **Preflight-cache priming control:** temporarily serve a valid CORS response at an owned endpoint, then put sshd at the same address/port and try the SSH-shaped HTTP method again. This may separate the first-request-line barrier from the browser's response parser. It needs cooperating target preparation and would not solve arbitrary unchanged servers. Do not conflate sending an SSH-looking first line with obtaining a usable bidirectional stream.
-2. **SSH implementation differences:** run the same wire probes against local Dropbear and another SSH library to measure pre-identification parsing and close behavior. Tolerating a prefix would still leave the browser's peer-protocol and response-access requirements.
+1. **Preflight-cache priming control — measured:** [the follow-up lab](../preflight/README.md) got an SSH-shaped first line through after cooperating preparation, but HTTP headers broke binary packet parsing and responses remained unreadable. An active Service Worker did not intercept browser-generated preflight. [Chromium/Firefox results](../../docs/results/preflight-lab.md).
+2. **SSH implementation differences — partially measured:** the follow-up compared OpenSSH and Dropbear identification, full native key exchange, exact HTTP replay, and invalid prefixes. Dropbear sends KEXINIT even before rejecting invalid identification; this is not a negotiation pass. The complete original suite against Dropbear or another SSH library remains untested.
 3. **Browser release differences:** run supported installed browsers and the latest stable releases with the same controls. Preserve versioned negative results; reopen a hypothesis when a concrete API or implementation changes.
 4. **Permissioned socket reference:** test an actual IWA or deliberately modified browser separately to validate the existing WASM engine over a true socket API. This would be a different runtime from the ordinary-tab experiment.
 

@@ -64,6 +64,8 @@ The Go core also implements encrypted key parsing and keyboard-interactive promp
 
 There is no optional relay or IWA adapter yet. The helper-free ordinary-tab objective remains a separate browser-platform research problem.
 
+The separate [ordinary-tab lab](../experiments/direct-tab/README.md) and [prepared-CORS follow-up](../experiments/preflight/README.md) use local SSH fixtures without the extension or connector. Their measured negative results do not change the working client's transport requirements.
+
 ## Startup configuration
 
 Edit `apps/web/workspace.js`, then rebuild. It currently supports a default host/port/user, terminal appearance, optional connect-on-open, and one command after authentication and PTY readiness. Defaults never auto-connect. Railway/dev.new auto-connect is blocked. Previously saved connection fields take precedence over build defaults; clear this app origin's `bigssh.profile` local-storage item to use new defaults.
